@@ -1,2 +1,6 @@
+Install all composer dependencies:
+- cd server
+- composer install
+
 Execute PHP server and HTML
 - php -S localhost:8000
