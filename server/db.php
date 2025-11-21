@@ -1,7 +1,7 @@
 <?php
 function start_db() {
     require_once __DIR__ . '/config/env.php';
-    $dotenv = loadenv();
+    loadenv();
 
     $db_host = $_ENV['DB_HOST'];
     $db_port = $_ENV['DB_PORT'];
