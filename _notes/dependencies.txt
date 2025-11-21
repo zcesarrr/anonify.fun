@@ -1,3 +1,4 @@
 - php 8.5.0
 - composer
 - postgresql with pgadmin4
+- .env file with database settings on /sever/config/
