@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+function loadenv() {
+    require_once __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
+    return $dotenv;
+}
 ?>

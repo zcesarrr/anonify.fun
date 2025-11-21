@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+$pdo = start_db();
 
 query($pdo, "INSERT INTO messages(msg) VALUES(?);", ["holaaaauwhads"]);
 
