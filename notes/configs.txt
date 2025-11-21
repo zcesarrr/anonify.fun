@@ -1,0 +1,9 @@
+######################## php.ini SETTINGS ########################
+Enable PostgreSQL and PDO drivers in your PHP ini file.
+Search the ini file directory executing the following cli command:
+- php --ini
+
+Open the php.ini file and remove the ';' in the following extensions:
+- extension=pdo_pgsql
+- extension=pgsql
+######################## php.ini SETTINGS ########################
