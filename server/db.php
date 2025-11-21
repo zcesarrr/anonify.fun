@@ -24,7 +24,7 @@ function query(PDO $pdo = null, $query, $params) {
     }
 
     $stmt = $pdo->prepare($query);
-    $stmt->execute();
+    $stmt->execute($params);
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
