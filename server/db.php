@@ -17,7 +17,7 @@ try {
     die($db_error);
 }
 
-function query(PDO $pdo = null, $query, $params) {
+function query(PDO $pdo, $query, $params) {
     if (!$pdo) {
         echo "No DB connection.";
         return;
@@ -29,7 +29,7 @@ function query(PDO $pdo = null, $query, $params) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function query_notparams(PDO $pdo = null, $query) {
+function query_notparams(PDO $pdo, $query) {
     if (!$pdo) {
         echo "No DB connection.";
         return;
