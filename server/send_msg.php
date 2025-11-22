@@ -27,9 +27,9 @@ require_once 'db.php';
 $pdo = initDB();
 query($pdo, "INSERT INTO messages(msg) VALUES(?);", [$msg]);
 
-
 // Return response
 $responseData = [
+    "id" => $pdo->lastInsertId(),
     "sentMessage" => $msg
 ];
 

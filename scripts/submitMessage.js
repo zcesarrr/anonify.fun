@@ -31,7 +31,13 @@ messageForm.addEventListener("submit", async(e) => {
 
         const data = await res.json();
         if (data.status === "success") {
-            result.innerHTML = data.message + '<br>{ sentMessage: ' + (data.data?.sentMessage || '') + " }";
+            result.innerHTML = `
+                ${data.message}<br>
+                {<br>
+                    id: ${(data.data?.id || '-1')},<br>
+                    sentMessage: ${(data.data?.sentMessage || '')},<br>
+                }
+            `;
         } else {
             result.textContent = (data.message || "Uknown error");
         }
