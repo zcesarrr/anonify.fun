@@ -1,5 +1,5 @@
 <?php
-function start_db() {
+function initDB() {
     require_once __DIR__ . '/config/env.php';
     loadenv();
 
@@ -34,7 +34,7 @@ function query(PDO $pdo, $query, $params) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function query_notparams(PDO $pdo, $query) {
+function queryNotParams(PDO $pdo, $query) {
     if (!$pdo) {
         echo "No DB connection.";
         return;
@@ -46,7 +46,7 @@ function query_notparams(PDO $pdo, $query) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function print_rows($rows, $names) {
+function printRows($rows, $names) {
     if (!$rows) {
         echo "No rows.";
     } else {
