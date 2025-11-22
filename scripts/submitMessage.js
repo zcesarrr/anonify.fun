@@ -1,5 +1,5 @@
 const messageForm = document.getElementById("messageForm");
-const result = document.getElementById("result");
+const result = document.getElementById("messageFormResult");
 
 messageForm.addEventListener("submit", async(e) => {
     e.preventDefault();
