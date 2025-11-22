@@ -39,6 +39,8 @@ messageForm.addEventListener("submit", async(e) => {
         console.error(err);
         result.textContent = "Unable connect to server";
     } finally {
+        messageForm.elements.msgForm_message.value = "";
+
         messageForm.elements.msgForm_message.disabled = false;
         messageForm.elements.msgForm_submitBtn.disabled = false;
     }
