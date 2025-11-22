@@ -6,10 +6,12 @@
     <title>NGL Like App</title>
 </head>
 <body>
-    <form action="server/send_msg.php" method="POST">
+    <form id="messageForm">
         <label for="message">Write your anonymous message!</label><br>
         <textarea id="message" name="message" minlength="6" required></textarea><br>
         <button type="submit">Send</button>
     </form>
+    <div id="result"></div>
+    <script src="scripts/submitMessage.js"></script>
 </body>
 </html>
