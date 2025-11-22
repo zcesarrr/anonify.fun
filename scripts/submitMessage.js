@@ -20,13 +20,13 @@ messageForm.addEventListener("submit", async(e) => {
 
         if (!res.ok) {
             const err = await res.json().catch(() => null);
-            result.textContent("Server error: " + (err?.message || res.statusText));
+            result.textContent = "Server error: " + (err?.message || res.statusText);
             return;
         }
 
         const data = await res.json();
         if (data.status === "success") {
-            result.innerHTML = data.message + '<br>message: ' + (data.data?.message || '');
+            result.innerHTML = data.message + '<br>{ sentMessage: ' + (data.data?.sentMessage || '') + " }";
         } else {
             result.textContent = (data.message || "Uknown error");
         }
