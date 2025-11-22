@@ -12,16 +12,18 @@ document.body.appendChild(lastMessagesContainer);
 
 const showLastMessagesBtn = document.getElementById("showLastMessagesBtn");
 const lastMessagesGetResult = document.getElementById("lastMessagesGetResult");
+const lastMessagesContent = document.getElementById("lastMessagesContent");
 
 showLastMessagesBtn.addEventListener("click", async(e) => {
    e.preventDefault();
 
    const payload = {
-        quantity: 2
+        quantity: 0
     };
    
    showLastMessagesBtn.disabled = true;
 
+   lastMessagesContent.textContent = ""
    lastMessagesGetResult.textContent = "Loading...";
 
    try {
@@ -41,14 +43,22 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
 
         const data = await res.json();
         if (data.status === "success") {
-            /*lastMessagesGetResult.innerHTML = `
-                ${data.message}<br>
-                {<br>
-                    id: ${(data.data?.id || '-1')},<br>
-                    sentMessage: ${(data.data?.sentMessage || '')},<br>
-                }
-            `;*/
-            console.log(data.lastMessages);
+            if (data.data?.lastMessages.length > 0) {
+                lastMessagesGetResult.textContent = data.message;
+
+                data.data?.lastMessages.map((item, index) => {
+                    const messageItem = document.createElement("div");
+                    messageItem.attributes = {key: index};
+                    messageItem.innerHTML = `
+                        id: ${item.id}<br>
+                        message: ${item.msg}<br>
+                        created_at: ${item.created_at}<br><br>
+                    `;
+                    lastMessagesContent.appendChild(messageItem);
+                });
+            } else {
+                lastMessagesGetResult.textContent = "No messages found.";
+            }
         } else {
             lastMessagesGetResult.textContent = (data.message || "Uknown error");
         }

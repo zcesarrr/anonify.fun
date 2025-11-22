@@ -11,7 +11,17 @@ if (!$input) {
 
 
 // Get data
-$quantity = intval($input["quantity"] ?? 10);
+$quantity = trim(intval($input["quantity"] ?? 10));
+
+
+// Validations
+if ($quantity == 0) {
+    $quantity = 9999;
+} else if ($quantity < 0){
+    http_response_code(422);
+    echo json_encode(["status" => "error", "message" => "The quantity must be 1 or greater."]);
+    exit;
+}
 
 
 // Do operations
