@@ -6,12 +6,17 @@ messageForm.addEventListener("submit", async(e) => {
 
     const formData = new FormData(messageForm);
     const payload = {
-        msg: formData.get("message")
+        msg: formData.get("msgForm_message")
     };
+
+    messageForm.elements.msgForm_message.disabled = true;
+    messageForm.elements.msgForm_submitBtn.disabled = true;
 
     result.textContent = "Sending...";
 
     try {
+        //await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
+        
         const res = await fetch("../server/send_msg.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -33,5 +38,8 @@ messageForm.addEventListener("submit", async(e) => {
     } catch (err) {
         console.error(err);
         result.textContent = "Unable connect to server";
+    } finally {
+        messageForm.elements.msgForm_message.disabled = false;
+        messageForm.elements.msgForm_submitBtn.disabled = false;
     }
 });
