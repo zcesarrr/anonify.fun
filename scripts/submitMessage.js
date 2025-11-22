@@ -4,7 +4,7 @@ const result = document.getElementById("result");
 messageForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
+    const formData = new FormData(messageForm);
     const payload = {
         msg: formData.get("message")
     };
