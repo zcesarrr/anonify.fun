@@ -11,7 +11,7 @@ if (!$input) {
 
 
 // Get data
-$quantity = trim($input["msg"] ?? '');
+$quantity = intval($input["quantity"] ?? 10);
 
 
 // Do operations
