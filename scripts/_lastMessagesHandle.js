@@ -48,7 +48,7 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
                     sentMessage: ${(data.data?.sentMessage || '')},<br>
                 }
             `;*/
-            console.log(data.message);
+            console.log(data.lastMessages);
         } else {
             lastMessagesGetResult.textContent = (data.message || "Uknown error");
         }
