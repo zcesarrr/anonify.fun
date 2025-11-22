@@ -46,9 +46,8 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
             if (data.data?.lastMessages.length > 0) {
                 lastMessagesGetResult.textContent = data.message;
 
-                data.data?.lastMessages.map((item, index) => {
+                data.data?.lastMessages.map((item) => {
                     const messageItem = document.createElement("div");
-                    messageItem.attributes = {key: index};
                     messageItem.innerHTML = `
                         id: ${item.id}<br>
                         message: ${item.msg}<br>
