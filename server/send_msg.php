@@ -4,6 +4,8 @@ $pdo = start_db();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = $_POST["message"];
+    if (strlen($message) < 6) die("The message cannot be short!");
+
     query($pdo, "INSERT INTO messages(msg) VALUES(?);", [$message]);
 
     $messages_rows = query_notparams($pdo, "SELECT * FROM messages");
