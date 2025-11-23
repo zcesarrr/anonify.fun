@@ -8,7 +8,7 @@ CREATE TABLE messages(
 
 SELECT * FROM messages;
 
-SELECT * FROM messages ORDER BY id DESC LIMIT 0;
+SELECT * FROM messages ORDER BY id DESC;
 
 INSERT INTO messages(msg) VALUES('hi owo');
 INSERT INTO messages(msg) VALUES('hello :3');
