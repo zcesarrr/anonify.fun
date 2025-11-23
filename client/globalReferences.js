@@ -1,0 +1,1 @@
+const msgForm_message = document.getElementById("msgForm_message");

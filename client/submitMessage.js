@@ -9,7 +9,7 @@ messageForm.addEventListener("submit", async(e) => {
         msg: formData.get("msgForm_message")
     };
 
-    messageForm.elements.msgForm_message.disabled = true;
+    msgForm_message.disabled = true;
     messageForm.elements.msgForm_submitBtn.disabled = true;
 
     result.textContent = "Sending...";
@@ -39,9 +39,9 @@ messageForm.addEventListener("submit", async(e) => {
         console.error(err);
         result.textContent = "Unable connect to server";
     } finally {
-        messageForm.elements.msgForm_message.value = "";
+        msgForm_message.value = "";
 
-        messageForm.elements.msgForm_message.disabled = false;
+        msgForm_message.disabled = false;
         messageForm.elements.msgForm_submitBtn.disabled = false;
     }
 });
