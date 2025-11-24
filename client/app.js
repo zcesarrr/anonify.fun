@@ -57,6 +57,8 @@ messageForm.addEventListener("submit", async(e) => {
 
         const data = await res.json();
         if (data.status === "success") {
+            msgForm_message.value = "";
+            
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
 
@@ -73,7 +75,6 @@ messageForm.addEventListener("submit", async(e) => {
         messageFormResult.textContent = "Unable connect to server";
         messageFormResult.className = "statusFailed";
     } finally {
-        msgForm_message.value = "";
         msgForm_message.disabled = false;
 
         setTimeout(() => {
