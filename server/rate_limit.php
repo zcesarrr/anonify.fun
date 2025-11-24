@@ -4,9 +4,9 @@ $clientIP = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 $fingerprint = md5($clientIP);
 
 $attempts = (int)file_get_contents(__DIR__ . "/.attempts_$fingerprint") ?: 0;
-$cooldown = min(30 * pow(2, $attempts), 300); // 15s, 30s, 60s, 120s, 300s max
+$cooldown = min(5 * pow(2, $attempts), 300); // 15s, 30s, 60s, 120s, 300s max
 
-$rateLimitFile = __DIR__ . '/.rate_limit' . $fingerprint;
+$rateLimitFile = __DIR__ . '/.rate_limit_' . $fingerprint;
 $cooldownSeconds = $cooldown;
 
 if (file_exists($rateLimitFile)) {
@@ -30,5 +30,9 @@ if (file_exists($rateLimitFile)) {
 
 if (file_exists(__DIR__ . "/.attempts_$fingerprint")) {
     unlink(__DIR__ . "/.attempts_$fingerprint");
+}
+
+if (file_exists(__DIR__ . "/.rate_limit_$fingerprint")) {
+    unlink(__DIR__ . "/.rate_limit_$fingerprint");
 }
 ?>
