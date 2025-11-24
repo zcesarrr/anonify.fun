@@ -14,8 +14,8 @@ if (file_exists($rateLimitFile)) {
     $timeLeft = $cooldownSeconds - (time() - $lastRequest);
 
     if ($timeLeft > 0) {
-        $attempts++;
-        file_put_contents(__DIR__ . "/.attempts_$fingerprint", $attempts);
+        /*$attempts++;
+        file_put_contents(__DIR__ . "/.attempts_$fingerprint", $attempts);*/
 
         http_response_code(429);
         header("Retry-After: $timeLeft");
