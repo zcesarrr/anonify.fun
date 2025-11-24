@@ -473,3 +473,4 @@ composer.lock
 *.scss.map
 
 .rate_limit*
+.attempts*
