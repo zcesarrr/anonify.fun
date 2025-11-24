@@ -30,8 +30,6 @@ require_once 'db.php';
 $pdo = initDB();
 query($pdo, "INSERT INTO messages(msg) VALUES(?);", [$msg]);
 
-// Después de guardar, calcular cabeceras de rate limit para la respuesta
-// $cooldown viene de rate_limit.php; establecer X-RateLimit-Reset para que el cliente pueda bloquearse localmente.
 $resetAt = time() + $cooldown;
 header("X-RateLimit-Limit: $cooldown");
 header("X-RateLimit-Remaining: 0");
@@ -45,7 +43,7 @@ $responseData = [
 
 echo json_encode([
     "status" => "success",
-    "message" => "Message sent!",
+    "message" => "The anonymous message has been sent successfully! :3",
     "data" => $responseData
 ]);
 ?>
