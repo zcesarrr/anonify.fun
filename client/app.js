@@ -27,7 +27,7 @@ messageForm.addEventListener("submit", async(e) => {
     messageFormResult.textContent = "Sending...";
 
     try {
-        await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
+        //await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
         
         const res = await fetch("../server/send_msg.php", {
             method: "POST",
@@ -47,7 +47,7 @@ messageForm.addEventListener("submit", async(e) => {
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
 
-            messageForm.elements.msgForm_submitBtn.className = ""
+            messageForm.elements.msgForm_submitBtn.title = "Come back later to send another message!"
         } else {
             messageFormResult.textContent = (data.message || "Uknown error");
         }
@@ -58,7 +58,7 @@ messageForm.addEventListener("submit", async(e) => {
     } finally {
         msgForm_message.value = "";
 
-        //msgForm_message.disabled = false;
-        messageForm.elements.msgForm_submitBtn.disabled = false;
+        msgForm_message.disabled = false;
+        //messageForm.elements.msgForm_submitBtn.disabled = false;
     }
 });
