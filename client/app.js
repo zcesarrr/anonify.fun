@@ -2,6 +2,8 @@
 const messageForm = document.getElementById("messageForm");
 const msgForm_message = document.getElementById("msgForm_message");
 const messageFormResult = document.getElementById("messageFormResult");
+const msgForm_submitContainer_rateTime = document.getElementById("msgForm_submitContainer_rateTime");
+const msgForm_submitBtn = document.getElementById("msgForm_submitBtn");
 
 
 // Message Form Placeholder Handle
@@ -12,7 +14,25 @@ const randomPlaceholderIndex = Math.floor(Math.random() * placeholderTexts.lengt
 msgForm_message.placeholder = placeholderTexts[randomPlaceholderIndex];
 
 
+// Initialization
+async function initApp() {
+    msgForm_submitBtn.disabled = true;
+    if (await checkRateLimit()) {
+        blockSendButtonRateLimit();
+    } else {
+        unblockSendButtonRateLimit();
+    }
+}
+
+initApp();
+
+
 // Submit Message Handle
+const rateTimeElement = document.createElement("div");
+rateTimeElement.innerHTML = `
+    <img src="icons/clock.svg" alt="clock" class="filterWhite" width="28px"/> <div>32</div>
+`;
+
 messageForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
@@ -22,7 +42,7 @@ messageForm.addEventListener("submit", async(e) => {
     };
 
     msgForm_message.disabled = true;
-    messageForm.elements.msgForm_submitBtn.disabled = true;
+    msgForm_submitBtn.disabled = true;
 
     messageFormResult.textContent = "Sending...";
 
@@ -47,7 +67,7 @@ messageForm.addEventListener("submit", async(e) => {
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
 
-            messageForm.elements.msgForm_submitBtn.title = "Come back later to send another message!"
+            checkRateLimit();
         } else {
             messageFormResult.textContent = (data.message || "Uknown error");
         }
@@ -57,8 +77,57 @@ messageForm.addEventListener("submit", async(e) => {
         messageFormResult.className = "statusFailed";
     } finally {
         msgForm_message.value = "";
-
         msgForm_message.disabled = false;
-        //messageForm.elements.msgForm_submitBtn.disabled = false;
+
+        setInterval(() => {
+            messageFormResult.textContent = "";
+        }, 4000);
     }
 });
+
+async function checkRateLimit() {
+    try {
+        const res = await fetch("../server/rate_limit.php")
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => null);
+            msgForm_submitContainer_rateTime.appendChild(rateTimeElement);
+            currentTime = err.retryAfter;
+            blockSendButtonRateLimit();
+            updateClockIconTime(currentTime);
+
+            return true;
+        }
+
+        return false;
+    } catch (err) {
+        console.error(err);
+
+        return true;
+    }
+}
+
+function blockSendButtonRateLimit() {
+    msgForm_submitBtn.disabled = true;
+    msgForm_submitBtn.title = "Come back later to send another message!"
+}
+
+function unblockSendButtonRateLimit() {
+    msgForm_submitBtn.disabled = false;
+    msgForm_submitBtn.title = "";
+}
+
+function updateClockIconTime(seconds) {
+    rateTimeElement.querySelector("div").textContent = seconds;
+    
+    const interval = setInterval(() => {
+        seconds--;
+        rateTimeElement.querySelector("div").textContent = seconds;
+        
+        if (seconds <= 0) {
+            clearInterval(interval);
+            unblockSendButtonRateLimit();
+            msgForm_submitContainer_rateTime.removeChild(rateTimeElement);
+        }
+    }, 1000);
+}
