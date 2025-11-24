@@ -35,7 +35,7 @@ $responseData = [
 
 echo json_encode([
     "status" => "success",
-    "message" => "Operation successfully completed!",
+    "message" => "The anonymous message has been sent successfully! :3",
     "data" => $responseData
 ]);
 ?>

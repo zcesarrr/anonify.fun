@@ -5,7 +5,7 @@ const messageFormResult = document.getElementById("messageFormResult");
 
 
 // Message Form Placeholder Handle
-const placeholderTexts = ["Tengo algo que decir…","¿Qué harías si nadie te juzga?","No sé si contarlo pero…","Tengo una duda rara…","Esto es anónimo ¿verdad?","Nunca dije esto a nadie…","¿Soy yo o…?","Creo que arruiné algo","Confesión rápida:","A veces me da pena admitir esto…","¿Está mal sentir esto?","Creo que estoy enamadx","Me pasó algo vergonzoso…","Esta historia es real","Si lo digo no me odies","Lo juro no fue mi culpa","A veces extraño algo raro","Spoiler: hice un desastre","¿Y si te cuento la verdad?","Shhh… nadie sabe esto","Ok… necesito consejo","Promete no reírte","Fue un accidente… creo","No sé si fue buena idea","Mi secreto más raro:","Debería haberlo dicho antes","Estoy nervios@ de escribir esto","Advertencia: cringe","Necesito ayuda","Tengo miedo de admitirlo","Ok… historia incómoda:","Esto solo pasa una vez","¿Tú también haces esto?","No sabía dónde más decirlo","Plot twist: fui yo","No sé cómo pasó pero pasó","Esto será raro","No sé si arrepentirme","¿Y si es normal?","Prometo que no es broma","Está raro pero real","No sé si estoy exagerando","Me pasó algo loco","Ok… contexto:","¿Te ha pasado algo así?","Confesión modo rápido:","No sé si contarlo todo","Esto puede sonar estúpido","Sin filtros:","Ok… aquí voy"];
+const placeholderTexts = ["I have something to say…","What would you do with no judgment?","Not sure if I should say this…","I have a weird question…","This is anonymous right?","Never told anyone this…","Is it just me or…?","I think I messed up","Quick confession:","Kinda embarrassed to admit this…","Is it wrong to feel this?","I think I'm in love","Something embarrassing happened…","This story is real","Don't hate me for this","I swear it wasn't my fault","Sometimes I miss weird things","Spoiler: I ruined everything","What if I tell you the truth?","Shhh… nobody knows","Okay… I need advice","Promise you won't laugh","It was an accident… I think","Not sure if it was a good idea","My weirdest secret:","Should've said this earlier","I'm nervous typing this","Warning: cringe","I need help","I'm scared to admit this","Okay… awkward story:","This only happens once","Do YOU do this too?","Didn't know where else to say this","Plot twist: it was me","No idea how it happened","This is gonna be weird","Not sure if I regret it","What if it's normal?","I promise it's not a joke","It's weird but true","Maybe I'm overthinking","Something crazy happened","Okay… context:","Has this ever happened to you?","Fast confession mode:","Not sure if I should say all of it","This might sound stupid","No filter:","Alright… here I go"];
 
 const randomPlaceholderIndex = Math.floor(Math.random() * placeholderTexts.length);
 
@@ -27,7 +27,7 @@ messageForm.addEventListener("submit", async(e) => {
     messageFormResult.textContent = "Sending...";
 
     try {
-        //await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
+        await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
         
         const res = await fetch("../server/send_msg.php", {
             method: "POST",
@@ -38,22 +38,27 @@ messageForm.addEventListener("submit", async(e) => {
         if (!res.ok) {
             const err = await res.json().catch(() => null);
             messageFormResult.textContent = "Server error: " + (err?.message || res.statusText);
+            messageFormResult.className = "statusFailed";
             return;
         }
 
         const data = await res.json();
         if (data.status === "success") {
             messageFormResult.textContent = data.message;
+            messageFormResult.className = "statusOk";
+
+            messageForm.elements.msgForm_submitBtn.className = ""
         } else {
             messageFormResult.textContent = (data.message || "Uknown error");
         }
     } catch (err) {
         console.error(err);
         messageFormResult.textContent = "Unable connect to server";
+        messageFormResult.className = "statusFailed";
     } finally {
         msgForm_message.value = "";
 
-        msgForm_message.disabled = false;
+        //msgForm_message.disabled = false;
         messageForm.elements.msgForm_submitBtn.disabled = false;
     }
 });
