@@ -6,10 +6,6 @@ const msgForm_submitContainer_rateTime = document.getElementById("msgForm_submit
 const msgForm_submitBtn = document.getElementById("msgForm_submitBtn");
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 351ef00 (new rate limit security)
 // Message Form Placeholder Handle
 const placeholderTexts = ["I have something to say…","What would you do with no judgment?","Not sure if I should say this…","I have a weird question…","This is anonymous right?","Never told anyone this…","Is it just me or…?","I think I messed up","Quick confession:","Kinda embarrassed to admit this…","Is it wrong to feel this?","I think I'm in love","Something embarrassing happened…","This story is real","Don't hate me for this","I swear it wasn't my fault","Sometimes I miss weird things","Spoiler: I ruined everything","What if I tell you the truth?","Shhh… nobody knows","Okay… I need advice","Promise you won't laugh","It was an accident… I think","Not sure if it was a good idea","My weirdest secret:","Should've said this earlier","I'm nervous typing this","Warning: cringe","I need help","I'm scared to admit this","Okay… awkward story:","This only happens once","Do YOU do this too?","Didn't know where else to say this","Plot twist: it was me","No idea how it happened","This is gonna be weird","Not sure if I regret it","What if it's normal?","I promise it's not a joke","It's weird but true","Maybe I'm overthinking","Something crazy happened","Okay… context:","Has this ever happened to you?","Fast confession mode:","Not sure if I should say all of it","This might sound stupid","No filter:","Alright… here I go"];
 
@@ -18,11 +14,7 @@ const randomPlaceholderIndex = Math.floor(Math.random() * placeholderTexts.lengt
 msgForm_message.placeholder = placeholderTexts[randomPlaceholderIndex];
 
 
-<<<<<<< HEAD
 // Initializaation
-=======
-// Initialization
->>>>>>> parent of 351ef00 (new rate limit security)
 async function initApp() {
     msgForm_submitBtn.disabled = true;
     if (await checkRateLimit()) {

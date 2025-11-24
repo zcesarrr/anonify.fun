@@ -30,14 +30,11 @@ require_once 'db.php';
 $pdo = initDB();
 query($pdo, "INSERT INTO messages(msg) VALUES(?);", [$msg]);
 
-<<<<<<< HEAD
 $resetAt = time() + $cooldown;
 header("X-RateLimit-Limit: $cooldown");
 header("X-RateLimit-Remaining: 0");
 header("X-RateLimit-Reset: $resetAt");
 
-=======
->>>>>>> parent of 351ef00 (new rate limit security)
 // Return response
 $responseData = [
     "id" => $pdo->lastInsertId(),
