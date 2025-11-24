@@ -14,7 +14,9 @@ msgForm_message.placeholder = placeholderTexts[randomPlaceholderIndex];
 
 
 // Submit Message Handle
-const rateTimeElement = document.createElement("");
+checkRateLimit();
+
+const rateTimeElement = document.createElement("div");
 rateTimeElement.innerHTML = `
     <img src="icons/clock.svg" alt="clock" class="filterWhite" width="28px"/> 32
 `;
@@ -55,7 +57,7 @@ messageForm.addEventListener("submit", async(e) => {
 
             messageForm.elements.msgForm_submitBtn.title = "Come back later to send another message!"
 
-            
+            msgForm_submitContainer_rateTime.appendChild(rateTimeElement);
         } else {
             messageFormResult.textContent = (data.message || "Uknown error");
         }
@@ -70,3 +72,21 @@ messageForm.addEventListener("submit", async(e) => {
         //messageForm.elements.msgForm_submitBtn.disabled = false;
     }
 });
+
+
+async function checkRateLimit() {
+    try {
+        const res = await fetch("../server/rate_limit.php")
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => null);
+            messageFormResult.textContent = "Server error: " + (err?.message || res.statusText);
+            messageFormResult.className = "statusFailed";
+            return;
+        }
+    } catch (err) {
+        console.error(err);
+        messageFormResult.textContent = "Unable connect to server";
+        messageFormResult.className = "statusFailed";
+    }
+}
