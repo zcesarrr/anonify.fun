@@ -124,13 +124,19 @@ footer {
 }
 
 #messageFormResult {
+    justify-self: center;
     text-align: center;
 }
 
 @media screen and (max-width: 425px) {
-  #messageForm textarea {
-    width: 300px;
-  }
+    #messageForm textarea {
+        width: 300px;
+    }
+
+  
+    #messageFormResult {
+        max-width: 300px;
+    }
 
   /*#footerHackerNoonAttribution div {
     font-size: 14px;
@@ -138,9 +144,9 @@ footer {
 }
 
 @media screen and (max-width: 345px) {
-  #messageForm textarea {
-    width: 275px;
-  }
+    #messageForm textarea {
+        width: 275px;
+    }
 
   /*#footerHackerNoonAttribution div {
     font-size: 14px;
