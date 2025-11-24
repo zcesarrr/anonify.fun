@@ -68,6 +68,17 @@ body {
     font-size: 16px;
 }
 
+#messageFormResult {
+    text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  /* Styles to apply when the screen width is 768px or less */
+  #messageForm textarea {
+    width: 300px;
+  }
+}
+
 #messageForm textarea:focus{
     border: 2px solid  greenyellow;
     outline: none;
