@@ -30,10 +30,6 @@ require_once 'db.php';
 $pdo = initDB();
 query($pdo, "INSERT INTO messages(msg) VALUES(?);", [$msg]);
 
-$resetAt = time() + $cooldown;
-header("X-RateLimit-Limit: $cooldown");
-header("X-RateLimit-Remaining: 0");
-header("X-RateLimit-Reset: $resetAt");
 
 // Return response
 $responseData = [
