@@ -1,5 +1,5 @@
 <?php
-$rateLimitFile = __DIR__ . '/rate_limit';
+$rateLimitFile = __DIR__ . '/.rate_limit';
 $cooldownSeconds = 15;
 
 if (file_exists($rateLimitFile)) {

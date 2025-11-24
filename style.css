@@ -1,5 +1,6 @@
 * {
-    font-family: "Pixelify Sans";
+    font-family: "VT323";
+    letter-spacing: 1px;
     color: white;
 }
 
@@ -36,6 +37,7 @@ footer {
     min-height: 32px;
     align-items: center;
     justify-content: space-between;
+    gap: 64px;
 }
 
 #footerHackerNoonAttribution {
@@ -57,6 +59,21 @@ footer {
     display: flex;
     gap: 8px;
     align-items: center;
+}
+
+#footerSocialIcons div {
+    margin-right: 8px;
+}
+
+
+#footerSocialIcons a {
+    display: flex;
+    align-items: center;
+    height: 28px;
+}
+
+#footerSocialIcons img {
+    display: block;
 }
 
 #footerSocialIcons a:hover {
@@ -110,11 +127,24 @@ footer {
     text-align: center;
 }
 
-@media screen and (max-width: 500px) {
-  /* Styles to apply when the screen width is 768px or less */
+@media screen and (max-width: 425px) {
   #messageForm textarea {
     width: 300px;
   }
+
+  /*#footerHackerNoonAttribution div {
+    font-size: 14px;
+  }*/
+}
+
+@media screen and (max-width: 345px) {
+  #messageForm textarea {
+    width: 275px;
+  }
+
+  /*#footerHackerNoonAttribution div {
+    font-size: 14px;
+  }*/
 }
 
 #messageForm textarea:focus{
