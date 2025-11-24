@@ -29,10 +29,30 @@ main {
 header {
     border-bottom: 2px solid white;
     margin: 0;
+    display: flex;
     position: sticky;
     background: black;
     padding: 10px 24px;
     min-height: 32px;
+    align-items: center;
+}
+
+#headerNavigation {
+    display: flex;
+    gap: 24px;
+}
+
+#headerNavigation a{
+    text-decoration: none;
+    font-size: 22px;
+}
+
+#headerNavigation a:hover{
+    color: greenyellow;
+}
+
+#headerNavigation a:focus{
+    color: yellow;
 }
 
 footer {
