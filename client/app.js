@@ -86,6 +86,15 @@ messageForm.addEventListener("submit", async(e) => {
 });
 
 async function checkRateLimit() {
+    const rateLimitLocal = parseFloat(localStorage.getItem("rateLimit"));
+    const timeLeft = Date.now() - rateLimitLocal;
+
+    if (timeLeft > 0 ) {
+        blockSendButtonRateLimit();
+        updateClockIconTime(timeLeft);
+        return true;
+    }
+
     try {
         const res = await fetch("../server/rate_limit.php")
 
@@ -96,6 +105,7 @@ async function checkRateLimit() {
             blockSendButtonRateLimit();
             updateClockIconTime(currentTime);
 
+            localStorage.setItem("rateLimit", currentTime)
             return true;
         }
 
