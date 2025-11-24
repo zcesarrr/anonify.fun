@@ -80,7 +80,7 @@ messageForm.addEventListener("submit", async(e) => {
         msgForm_message.disabled = false;
 
         setInterval(() => {
-            messageFormResult.textContent = "";
+            messageFormResult.textContent = "‎ ";
         }, 4000);
     }
 });

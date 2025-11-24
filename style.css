@@ -13,15 +13,16 @@ body {
     background: black;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 90% 10%;
+    grid-template-rows: 1fr auto;
 }
 
 main {
-    border: 1px solid green;
+    border: 2px solid green;
     display: grid;
     align-items: flex-start;
     padding-top: 25vh;
-    overflow: auto;
+    overflow-y: auto;
+    min-height: 0;
 }
 
 footer {
@@ -29,12 +30,8 @@ footer {
     background: black;
     padding: 10px;
     text-align: center;
-}
-
-#mainContent {
-    /*border: 1px solid black;*/
-    display: grid;
-    justify-items: center;
+    position: sticky;
+    bottom: 0;
 }
 
 #messageForm {
