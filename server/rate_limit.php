@@ -1,5 +1,6 @@
 <?php
-$rateLimitFile = __DIR__ . '/.rate_limit';
+$clientIP = $_SERVER['REMOTE_ADDR'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? 'unknown';
+$rateLimitFile = __DIR__ . '/.rate_limit' . md5($clientIP);
 $cooldownSeconds = 15;
 
 if (file_exists($rateLimitFile)) {
