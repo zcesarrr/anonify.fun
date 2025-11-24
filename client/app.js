@@ -58,7 +58,7 @@ messageForm.addEventListener("submit", async(e) => {
         const data = await res.json();
         if (data.status === "success") {
             msgForm_message.value = "";
-            
+
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
 
@@ -79,7 +79,7 @@ messageForm.addEventListener("submit", async(e) => {
 
         setTimeout(() => {
             messageFormResult.textContent = "‎ ";
-        }, 4000);
+        }, 6000);
     }
 });
 
