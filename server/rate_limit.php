@@ -26,13 +26,11 @@ if (file_exists($rateLimitFile)) {
         ]);
         exit();
     }
+
+    unlink($rateLimitFile);
 }
 
 if (file_exists(__DIR__ . "/.attempts_$fingerprint")) {
     unlink(__DIR__ . "/.attempts_$fingerprint");
-}
-
-if (file_exists(__DIR__ . "/.rate_limit_$fingerprint")) {
-    unlink(__DIR__ . "/.rate_limit_$fingerprint");
 }
 ?>
