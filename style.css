@@ -14,26 +14,34 @@ body {
     background: black;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto 1fr auto;
 }
 
 main {
     /*border: 2px solid green;*/
     display: grid;
     align-items: flex-start;
-    padding-top: 25vh;
+    padding-top: 20vh;
     overflow-y: auto;
     min-height: 0;
 }
 
-footer {
+header {
+    border-bottom: 2px solid white;
     margin: 0;
-    display: flex;
-    border-top: 2px solid white;
+    position: sticky;
     background: black;
     padding: 10px 24px;
+    min-height: 32px;
+}
+
+footer {
+    border-top: 2px solid white;
+    margin: 0;
+    display: flex;
     position: sticky;
-    bottom: 0;
+    background: black;
+    padding: 10px 24px;
     min-height: 32px;
     align-items: center;
     justify-content: space-between;
