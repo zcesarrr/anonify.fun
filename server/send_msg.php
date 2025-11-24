@@ -2,7 +2,7 @@
 require_once 'rate_limit.php';
 file_put_contents($rateLimitFile, time());
 
-header("Content-Type: application/json; chatset=utf-8");
+header("Content-Type: application/json; charset=utf-8");
 
 $input = json_decode(file_get_contents("php://input"), true);
 
