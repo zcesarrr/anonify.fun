@@ -2,6 +2,7 @@
 const messageForm = document.getElementById("messageForm");
 const msgForm_message = document.getElementById("msgForm_message");
 const messageFormResult = document.getElementById("messageFormResult");
+const msgForm_submitContainer_rateTime = document.getElementById("msgForm_submitContainer_rateTime");
 
 
 // Message Form Placeholder Handle
@@ -13,6 +14,11 @@ msgForm_message.placeholder = placeholderTexts[randomPlaceholderIndex];
 
 
 // Submit Message Handle
+const rateTimeElement = document.createElement("");
+rateTimeElement.innerHTML = `
+    <img src="icons/clock.svg" alt="clock" class="filterWhite" width="28px"/> 32
+`;
+
 messageForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
@@ -48,6 +54,8 @@ messageForm.addEventListener("submit", async(e) => {
             messageFormResult.className = "statusOk";
 
             messageForm.elements.msgForm_submitBtn.title = "Come back later to send another message!"
+
+            
         } else {
             messageFormResult.textContent = (data.message || "Uknown error");
         }

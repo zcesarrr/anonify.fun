@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://unpkg.com/pixelarticons/pixelarticons.css">
     <title>NGL Like App</title>
 </head>
 <body>
@@ -15,7 +16,12 @@
             <form id="messageForm">
                 <label for="msgForm_message">Write your anonymous message!</label><br>
                 <textarea rows="8" cols="48" id="msgForm_message" name="msgForm_message" minlength="6" required></textarea><br>
-                <button id="msgForm_submitBtn" type="submit">Send</button>
+                <div id="msgForm_submitContainer">
+                    <button id="msgForm_submitBtn" type="submit">Send</button>
+                    <div id="msgForm_submitContainer_rateTime">
+                        <img src="icons/clock.svg" alt="clock" class="filterWhite" width="28px"/> 32
+                    </div>
+                </div>
             </form>
 
             <br><br><div id="messageFormResult"></div>
