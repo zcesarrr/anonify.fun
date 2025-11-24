@@ -1,8 +1,11 @@
 <?php
 require_once 'rate_limit.php';
-file_put_contents($rateLimitFile, time());
 
-header("Content-Type: application/json; chatset=utf-8");
+// actualizar timestamp de último request de forma atómica
+@file_put_contents($rateLimitFile, (string)time(), LOCK_EX);
+
+// Content-Type con charset corregido
+header("Content-Type: application/json; charset=utf-8");
 
 $input = json_decode(file_get_contents("php://input"), true);
 
@@ -12,10 +15,8 @@ if (!$input) {
     exit;
 }
 
-
 // Get data
 $msg = trim($input["msg"] ?? '');
-
 
 // Validations
 if (strlen($msg) < 6) {
@@ -24,11 +25,17 @@ if (strlen($msg) < 6) {
     exit;
 }
 
-
 // Do operations
 require_once 'db.php';
 $pdo = initDB();
 query($pdo, "INSERT INTO messages(msg) VALUES(?);", [$msg]);
+
+// Después de guardar, calcular cabeceras de rate limit para la respuesta
+// $cooldown viene de rate_limit.php; establecer X-RateLimit-Reset para que el cliente pueda bloquearse localmente.
+$resetAt = time() + $cooldown;
+header("X-RateLimit-Limit: $cooldown");
+header("X-RateLimit-Remaining: 0");
+header("X-RateLimit-Reset: $resetAt");
 
 // Return response
 $responseData = [
@@ -38,7 +45,7 @@ $responseData = [
 
 echo json_encode([
     "status" => "success",
-    "message" => "The anonymous message has been sent successfully! :3",
+    "message" => "Message sent!",
     "data" => $responseData
 ]);
 ?>
