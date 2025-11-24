@@ -11,16 +11,24 @@ body {
     margin: 0;
     min-height: 100vh;
     background: black;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 90% 10%;
 }
 
-#container {
-    /*border: 1px solid black;*/
-    display: flex;
-    min-height: 100%;
-    margin: 0;
-    justify-content: center;
+main {
+    border: 1px solid green;
+    display: grid;
     align-items: flex-start;
     padding-top: 25vh;
+    overflow: auto;
+}
+
+footer {
+    border: 2px solid white;
+    background: black;
+    padding: 10px;
+    text-align: center;
 }
 
 #mainContent {
@@ -106,8 +114,4 @@ body {
     display: flex;
     align-items: center;
     margin-left: 6px;
-}
-
-footer {
-    border: 2px solid white;
 }
