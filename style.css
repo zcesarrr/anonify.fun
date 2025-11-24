@@ -38,9 +38,25 @@ footer {
     justify-content: space-between;
 }
 
+#footerHackerNoonAttribution {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#footerHackerNoonAttribution a {
+    color: greenyellow;
+    text-decoration: none;
+}
+
+#footerHackerNoonAttribution a:hover {
+    color: yellow;
+}
+
 #footerSocialIcons {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 #footerSocialIcons a:hover {
