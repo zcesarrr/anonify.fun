@@ -78,6 +78,10 @@ messageForm.addEventListener("submit", async(e) => {
     } finally {
         msgForm_message.value = "";
         msgForm_message.disabled = false;
+
+        setInterval(() => {
+            messageFormResult.textContent = "";
+        }, 4000);
     }
 });
 
@@ -89,6 +93,7 @@ async function checkRateLimit() {
             const err = await res.json().catch(() => null);
             msgForm_submitContainer_rateTime.appendChild(rateTimeElement);
             currentTime = err.retryAfter;
+            blockSendButtonRateLimit();
             updateClockIconTime(currentTime);
 
             return true;
