@@ -107,3 +107,7 @@ body {
     align-items: center;
     margin-left: 6px;
 }
+
+footer {
+    border: 2px solid white;
+}
