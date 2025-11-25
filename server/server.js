@@ -4,9 +4,27 @@ const port = 3000;
 
 const pool = require('./config/db');
 
+const rateLimit = require('express-rate-limit');
+
 app.use(express.json());
 
-app.post('/messages', async(req, res) => {
+const getMessagesLimiter = rateLimit({
+    windowMs: 30 * 1000,
+    max: 1,
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res) => {
+        const retryAfter = res.getHeader("RateLimit-Reset");
+
+        res.status(429).json({
+            status: "error",
+            message: "Rate limit exceded.",
+            retryAfter
+        });
+    },
+});
+
+app.post('/messages', getMessagesLimiter, async(req, res) => {
     try {
         let limit = req.body.limit || 10;
 
