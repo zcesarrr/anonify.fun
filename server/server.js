@@ -16,7 +16,7 @@ app.use(cors({
 app.use(express.json());
 
 const getMessagesLimiter = rateLimit({
-    windowMs: 30 * 1000,
+    windowMs: 5 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,

@@ -29,7 +29,7 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
    try {
         //await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
         
-        const res = await fetch("http://localhost:3000/messages/", {
+        const res = await fetch("http://localhost:3000/messages", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -43,10 +43,10 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
 
         const data = await res.json();
         if (data.status === "success") {
-            if (data.data?.lastMessages.length > 0) {
+            if (data.data?.length > 0) {
                 lastMessagesGetResult.textContent = data.message;
 
-                data.data?.lastMessages.map((item) => {
+                data.data?.map((item) => {
                     const messageItem = document.createElement("div");
                     messageItem.innerHTML = `
                         id: ${item.id}<br>
