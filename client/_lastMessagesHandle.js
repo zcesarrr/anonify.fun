@@ -18,7 +18,7 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
    e.preventDefault();
 
    const payload = {
-        quantity: 0
+        limit: 0
     };
    
    showLastMessagesBtn.disabled = true;
@@ -29,7 +29,7 @@ showLastMessagesBtn.addEventListener("click", async(e) => {
    try {
         //await new Promise(resolve => setTimeout(resolve, 3000)); // <- Fake latency for testing
         
-        const res = await fetch("../server/get_msg.php", {
+        const res = await fetch("http://localhost:3000/messages/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
