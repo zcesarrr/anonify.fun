@@ -10,7 +10,8 @@ const rateLimit = require('express-rate-limit');
 app.use(cors({
     origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['RateLimit-Reset', 'RateLimit-Remaining']
 }));
 
 app.use(express.json());
@@ -34,7 +35,7 @@ const getMessagesLimiter = rateLimit({
 });
 
 const sendMessagesLimiter = rateLimit({
-    windowMs: 30 * 1000,
+    windowMs: 10 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,

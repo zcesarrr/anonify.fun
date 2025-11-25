@@ -28,6 +28,8 @@ async function initApp() {
 initApp();
 
 // Submit Message Handle
+let hideStatusTextTimeout;
+
 messageForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
@@ -35,6 +37,9 @@ messageForm.addEventListener("submit", async(e) => {
     const payload = {
         message: formData.get("msgForm_message")
     };
+    
+    messageFormResult.className = "";
+    clearTimeout(hideStatusTextTimeout);
 
     msgForm_message.disabled = true;
     msgForm_submitBtn.disabled = true;
@@ -47,6 +52,15 @@ messageForm.addEventListener("submit", async(e) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
+
+        if (res.headers.get("ratelimit-reset") !== null) {
+            const now = Date.now();
+            localStorage.setItem("rateLimit", now);
+
+            localStorage.setItem("rateLimitDuration", res.headers.get('ratelimit-reset'));
+            
+            checkRateLimit();
+        }
 
         if (!res.ok) {
             const err = await res.json().catch(() => null);
@@ -61,12 +75,6 @@ messageForm.addEventListener("submit", async(e) => {
 
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
-
-            const now = Date.now();
-            localStorage.setItem("rateLimit", now);
-            localStorage.setItem("rateLimitDuration", "45");
-            
-            checkRateLimit();
         } else {
             messageFormResult.textContent = (data.message || "Unknown error");
         }
@@ -74,10 +82,12 @@ messageForm.addEventListener("submit", async(e) => {
         console.error(err);
         messageFormResult.textContent = "Unable connect to server";
         messageFormResult.className = "statusFailed";
+
+        unblockSendButtonRateLimit();
     } finally {
         msgForm_message.disabled = false;
 
-        setTimeout(() => {
+        hideStatusTextTimeout = setTimeout(() => {
             messageFormResult.textContent = "‎ ";
         }, 6000);
     }
