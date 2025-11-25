@@ -18,7 +18,7 @@ const getMessagesLimiter = rateLimit({
 
         res.status(429).json({
             status: "error",
-            message: "Rate limit exceded.",
+            message: "Rate limit exceeded.",
             retryAfter
         });
     },
