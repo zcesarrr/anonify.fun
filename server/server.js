@@ -26,7 +26,7 @@ const limiterHandler = (req, res) => {
 }
 
 const getMessagesLimiter = rateLimit({
-    windowMs: 5 * 1000,
+    windowMs: 15 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,
@@ -34,7 +34,7 @@ const getMessagesLimiter = rateLimit({
 });
 
 const sendMessagesLimiter = rateLimit({
-    windowMs: 1 * 1000,
+    windowMs: 30 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,
