@@ -1,10 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
 const pool = require('./config/db');
 
 const rateLimit = require('express-rate-limit');
+
+app.use(cors({
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 
