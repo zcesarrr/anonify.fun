@@ -15,20 +15,30 @@ app.use(cors({
 
 app.use(express.json());
 
+const limiterHandler = (req, res) => {
+    const retryAfter = res.getHeader("RateLimit-Reset");
+
+    res.status(429).json({
+        status: "error",
+        message: "Rate limit exceeded.",
+        retryAfter
+    });
+}
+
 const getMessagesLimiter = rateLimit({
     windowMs: 5 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,
-    handler: (req, res) => {
-        const retryAfter = res.getHeader("RateLimit-Reset");
+    handler: limiterHandler,
+});
 
-        res.status(429).json({
-            status: "error",
-            message: "Rate limit exceeded.",
-            retryAfter
-        });
-    },
+const sendMessagesLimiter = rateLimit({
+    windowMs: 1 * 1000,
+    max: 1,
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: limiterHandler,
 });
 
 app.post('/messages', getMessagesLimiter, async(req, res) => {
@@ -54,6 +64,41 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
             status: "success",
             message: "Operation has been completed sucessfully!",
             data: result.rows
+        }
+
+        res.status(200).json(data);
+    } catch (err) {
+        console.error("Error executing query", err);
+
+        const data = {
+            status: "error",
+            message: "Server error"
+        }
+
+        res.status(500).json(data);
+    }
+});
+
+app.post('/send', sendMessagesLimiter, async(req, res) => {
+    try {
+        let message = req.body.message;
+
+        if (message.length < 6) {
+            const data400 = {
+                status: "error",
+                message: "The message must be higher than 5 characters.",
+            }
+
+            return res.status(400).json(data400);
+        }
+
+        const client = await pool.connect();
+        const result = await client.query('INSERT INTO messages(msg) VALUES($1)', [message]);
+        client.release();
+        
+        const data = {
+            status: "success",
+            message: "The message has been sent!"
         }
 
         res.status(200).json(data);

@@ -33,7 +33,7 @@ messageForm.addEventListener("submit", async(e) => {
 
     const formData = new FormData(messageForm);
     const payload = {
-        msg: formData.get("msgForm_message")
+        message: formData.get("msgForm_message")
     };
 
     msgForm_message.disabled = true;
@@ -42,7 +42,7 @@ messageForm.addEventListener("submit", async(e) => {
     messageFormResult.textContent = "Sending...";
 
     try {
-        const res = await fetch("../server/send_msg.php", {
+        const res = await fetch("http://localhost:3000/send", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
