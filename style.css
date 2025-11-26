@@ -21,7 +21,6 @@ main {
     /*border: 2px solid green;*/
     display: grid;
     align-items: flex-start;
-    padding-top: 20vh;
     overflow-y: auto;
     min-height: 0;
 }
@@ -110,102 +109,4 @@ footer {
 
 #footerSocialIcons a:focus {
     filter: brightness(0) saturate(100%) invert(99%) sepia(33%) saturate(7493%) hue-rotate(351deg) brightness(100%) contrast(105%);
-}
-
-#messageForm {
-    display: grid;
-    
-    justify-items: center;
-}
-
-#messageForm button {
-    width: 125px;
-    height: 35px;
-    background: black;
-    border: 2px solid white;
-    font-size: 16px;
-}
-
-#messageForm button:hover {
-    border: 2px solid #adff2f;
-}
-
-#messageForm button:focus {
-    border: 2px solid yellow;
-}
-
-#messageForm button:disabled {
-    border: 2px solid gray;
-    color: gray;
-}
-
-#messageForm label {
-    font-size: 20px;
-}
-
-#messageForm textarea {
-    resize: none;
-    padding: 8px;
-    background: black;
-    border: 2px solid white;
-    font-size: 24px;
-}
-
-#messageFormResult {
-    justify-self: center;
-    text-align: center;
-}
-
-@media screen and (max-width: 425px) {
-    #messageForm textarea {
-        width: 300px;
-    }
-
-  
-    #messageFormResult {
-        max-width: 300px;
-    }
-
-  /*#footerHackerNoonAttribution div {
-    font-size: 14px;
-  }*/
-}
-
-@media screen and (max-width: 345px) {
-    #messageForm textarea {
-        width: 275px;
-    }
-
-  /*#footerHackerNoonAttribution div {
-    font-size: 14px;
-  }*/
-}
-
-#messageForm textarea:focus{
-    border: 2px solid  greenyellow;
-    outline: none;
-}
-
-#messageForm textarea:disabled{
-    border: 2px solid  gray;
-    color: gray;
-}
-
-.statusOk {
-    color: greenyellow;
-}
-
-.statusFailed {
-    color: red;
-}
-
-#messageForm #msgForm_submitContainer {
-    display: flex;
-    align-items: center;
-}
-
-#messageForm #msgForm_submitContainer div {
-    display: flex;
-    align-items: center;
-    margin-left: 6px;
 }
