@@ -66,7 +66,7 @@ jobs:
     - name: Move server files to dist/server
       run: |
         # Mover toda la carpeta server
-        mv server/ dist/server/
+        mv server/ dist/
         
         echo "Moved server directory to dist/server/"
     
