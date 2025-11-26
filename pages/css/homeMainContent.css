@@ -17,26 +17,10 @@ main {
 #messageForm button {
     width: 125px;
     height: 35px;
-    background: black;
-    border: 2px solid white;
-    font-size: 16px;
 }
 
 #rules-advice {
     text-align: center;
-}
-
-#messageForm button:hover {
-    border: 2px solid #adff2f;
-}
-
-#messageForm button:focus {
-    border: 2px solid yellow;
-}
-
-#messageForm button:disabled {
-    border: 2px solid gray;
-    color: gray;
 }
 
 #messageForm label {
