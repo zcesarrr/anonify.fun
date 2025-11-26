@@ -49,6 +49,10 @@ messageForm.addEventListener("submit", async(e) => {
 
     messageFormResult.textContent = "Sending...";
 
+    if (document.getElementById("copy-advice").querySelector('a')) {
+        document.getElementById("copy-advice").firstElementChild.remove();
+    }
+
     try {
         const res = await fetch("http://localhost:3000/send", {
             method: "POST",
