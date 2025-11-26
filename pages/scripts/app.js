@@ -89,7 +89,8 @@ messageForm.addEventListener("submit", async(e) => {
 
                 adviceCopyInstance.addEventListener("click", (e) => {
                     e.preventDefault();
-                    console.log("funciona el copy");
+                    
+                    navigator.clipboard.writeText("testing");
                 });
             }
         } else {
