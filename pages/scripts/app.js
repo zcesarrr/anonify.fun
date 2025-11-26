@@ -92,6 +92,18 @@ messageForm.addEventListener("submit", async(e) => {
                     
                     const idResult = data.data.id;
                     navigator.clipboard.writeText(idResult);
+
+                    let isVisible = false;
+                    adviceCopyInstance.style.opacity = '0';
+                    const blinkInterval = setInterval(() => {
+                        isVisible = !isVisible;
+                        adviceCopyInstance.style.opacity = isVisible ? '1' : '0';
+                    }, 100);
+
+                    setTimeout(() => {
+                        clearInterval(blinkInterval);
+                        adviceCopyInstance.style.opacity = '1';
+                    }, 500);
                 });
             }
         } else {
