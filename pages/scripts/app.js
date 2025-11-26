@@ -52,6 +52,7 @@ messageForm.addEventListener("submit", async(e) => {
 
     if (adviceCopyInstance) {
         adviceCopyInstance.remove();
+        adviceCopyInstance = null;
     }
 
     try {
