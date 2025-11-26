@@ -28,6 +28,9 @@ async function initApp() {
 initApp();
 
 // Submit Message Handle
+const adviceCopy = document.createElement("p")
+adviceCopy.innerHTML = `<a href="#" class="highlight-nav-button">Copy</a> and save your request ID to search your answer on <a href="#" class="highlight-nav-button">messages</a> when it's available!`;
+
 let hideStatusTextTimeout;
 
 messageForm.addEventListener("submit", async(e) => {
@@ -75,6 +78,10 @@ messageForm.addEventListener("submit", async(e) => {
 
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
+
+            if (!document.getElementById("copy-advice").querySelector('a')) {
+                document.getElementById("copy-advice").appendChild(adviceCopy);
+            }
         } else {
             messageFormResult.textContent = (data.message || "Unknown error");
         }
