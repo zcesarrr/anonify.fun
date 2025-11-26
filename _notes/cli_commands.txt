@@ -1,7 +1,7 @@
-Install all composer dependencies:
+Install all nodejs dependencies:
 - cd server
-- composer install
+- npm install
 
-Execute PHP server and HTML
-- cd [root path]
-- php -S localhost:8000
+Execute express server
+- cd server
+- npm start

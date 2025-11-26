@@ -1,5 +1,5 @@
-- php 8.5.0
-- composer
+- nodejs
+- nodejs modules (check on cli_commands.txt)
 - postgresql with pgadmin4
 - create database and tables (use /sql/db.sql)
-- .env file with database settings on /server/config/
+- .env file with database settings on /server/
