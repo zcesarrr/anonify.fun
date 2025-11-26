@@ -12,10 +12,12 @@
 
 .one-click-button:hover {
     border: 2px solid #adff2f;
+    color: #adff2f;
 }
 
 .one-click-button:focus {
     border: 2px solid yellow;
+    color: yellow;
 }
 
 .one-click-button:disabled {
