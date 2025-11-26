@@ -29,7 +29,7 @@ initApp();
 
 // Submit Message Handle
 const adviceCopy = document.createElement("p")
-adviceCopy.innerHTML = `<a href="#" class="highlight-nav-button">Copy</a> and save your request ID to search your answer on <a href="#" class="highlight-nav-button">messages</a> when it's available!`;
+adviceCopy.innerHTML = `<a href="" class="highlight-nav-button" id="copyIDbtn">Copy</a> and save your request ID to search your answer on <a href="#" class="highlight-nav-button">messages</a> when it's available!`;
 let adviceCopyInstance;
 
 let hideStatusTextTimeout;
@@ -86,6 +86,11 @@ messageForm.addEventListener("submit", async(e) => {
 
             if (!adviceCopyInstance) {
                 adviceCopyInstance = document.getElementById("copy-advice").appendChild(adviceCopy);
+
+                adviceCopyInstance.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    console.log("funciona el copy");
+                });
             }
         } else {
             messageFormResult.textContent = (data.message || "Unknown error");
