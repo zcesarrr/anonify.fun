@@ -88,7 +88,7 @@ messageForm.addEventListener("submit", async(e) => {
             if (!adviceCopyInstance) {
                 adviceCopyInstance = document.getElementById("copy-advice").appendChild(adviceCopy);
 
-                adviceCopyInstance.addEventListener("click", (e) => {
+                document.getElementById("copyIDbtn").addEventListener("click", (e) => {
                     e.preventDefault();
                     
                     const idResult = data.data.id;
