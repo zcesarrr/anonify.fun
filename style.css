@@ -41,16 +41,16 @@ header {
     gap: 24px;
 }
 
-#headerNavigation a{
+.nav-button{
     text-decoration: none;
     font-size: 22px;
 }
 
-#headerNavigation a:hover{
+.nav-button:hover{
     color: greenyellow;
 }
 
-#headerNavigation a:focus{
+.nav-button:focus{
     color: yellow;
 }
 
@@ -73,12 +73,12 @@ footer {
     align-items: center;
 }
 
-#footerHackerNoonAttribution a {
-    color: greenyellow;
+.highlight-nav-button {
     text-decoration: none;
+    color: greenyellow;
 }
 
-#footerHackerNoonAttribution a:hover {
+.highlight-nav-button:hover {
     color: yellow;
 }
 
