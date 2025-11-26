@@ -16,6 +16,10 @@ main {
     font-size: 16px;
 }
 
+#rules-advice {
+    text-align: center;
+}
+
 #messageForm button:hover {
     border: 2px solid #adff2f;
 }
@@ -53,6 +57,10 @@ main {
 
   
     #messageFormResult {
+        max-width: 300px;
+    }
+
+    #rules-advice {
         max-width: 300px;
     }
 
