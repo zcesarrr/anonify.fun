@@ -11,16 +11,11 @@
     <link rel="stylesheet" href="https://unpkg.com/pixelarticons/pixelarticons.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="scripts/components.js" defer></script>
     <title>Confessss!</title>
 </head>
 <body>
-    <header>
-        <div id="headerNavigation">
-            <a href="index.html" class="nav-button">Home</a>
-            <a href="#" class="nav-button">Messages</a>
-            <a href="about.html" class="nav-button">About</a>
-        </div>
-    </header>
+    <header-component></header-component>
 
     <main id="mainContent">
         <div>
@@ -36,19 +31,6 @@
         </div>
     </main>
 
-    <footer>
-        <div id="footerHackerNoonAttribution">
-            <img src="icons/info-circle.svg" alt="info" class="filterWhite" width="24px"/>
-            <div>Icons from <a href="https://pixeliconlibrary.com/" target="_blank" class="highlight-nav-button">Pixel Icon Library</a> by <a href="https://hackernoon.com/" target="_blank" class="highlight-nav-button">HackerNoon</a></div>
-        </div>
-        <div id="footerSocialIcons">
-            <div>CesarZ</div>
-            <a href="https://x.com/zcesarrr" target="_blank"><img src="icons/twitter.svg" alt="twitter" class="filterWhite" width="28px"/></a>
-            <a href="https://github.com/zcesarrr" target="_blank"><img src="icons/github.svg" alt="github" class="filterWhite" width="28px"/></a>
-        </div>
-    </footer>
-
-    <!--<script src="client/_lastMessagesHandle.js"></script>-->
-    <script src="client/app.js"></script>
+    <footer-component></footer-component>
 </body>
 </html>
