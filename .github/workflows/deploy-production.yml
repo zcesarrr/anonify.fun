@@ -6,12 +6,17 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         fetch-depth: 0 # Necesario para crear nueva rama
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Setup Git
       run: |
@@ -75,6 +80,8 @@ jobs:
         find . -type f -name "*.js" -o -name "*.html" -o -name "*.css" | grep -v node_modules | sort
     
     - name: Commit and push changes to production branch
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add .
         git add -u # Para incluir archivos eliminados
