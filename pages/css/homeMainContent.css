@@ -98,3 +98,12 @@ main {
     align-items: center;
     margin-left: 6px;
 }
+
+#rulesModal ul{
+    display: flex;
+    list-style-type: none;
+    gap: 4px;
+    margin-left: 0;
+    padding-left: 16px;
+    flex-direction: column;
+}
