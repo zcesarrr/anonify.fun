@@ -1,5 +1,7 @@
 DROP TABLE messages;
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE messages(
 	id SERIAL PRIMARY KEY,
 	msg TEXT NOT NULL,
