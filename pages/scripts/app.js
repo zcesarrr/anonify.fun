@@ -90,7 +90,8 @@ messageForm.addEventListener("submit", async(e) => {
                 adviceCopyInstance.addEventListener("click", (e) => {
                     e.preventDefault();
                     
-                    navigator.clipboard.writeText("testing");
+                    const idResult = data.data.id;
+                    navigator.clipboard.writeText(idResult);
                 });
             }
         } else {

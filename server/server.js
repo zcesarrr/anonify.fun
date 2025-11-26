@@ -96,16 +96,18 @@ app.post('/send', sendMessagesLimiter, async(req, res) => {
         }
 
         const client = await pool.connect();
-        const result = await client.query('INSERT INTO messages(msg) VALUES($1)', [message]);
+        const result = await client.query('INSERT INTO messages(msg) VALUES($1) RETURNING id, msg, created_at', [message]);
         client.release();
+
+        const row = result.rows[0];
         
         const data = {
             status: "success",
             message: "The message has been sent!",
             data: {
-                id: result.id,
-                message: result.msg,
-                created_at: result.created_at
+                id: row.id,
+                message: row.msg,
+                created_at: row.created_at
             }
         }
 
