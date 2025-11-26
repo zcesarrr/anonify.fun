@@ -23,6 +23,10 @@
     color: gray;
 }
 
+.one-click-button:not([disabled]){
+    cursor: pointer;
+}
+
 .filterWhite {
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(126deg) brightness(107%) contrast(102%);
 }
@@ -138,5 +142,28 @@ footer {
     width: 100%;
     height: 100%;
     overflow: auto;
+    background: rgba(0, 0, 0, 0.75);
+
+    display: flex;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content h2{
+    margin-top: 0;
+    font-weight: normal;
+}
+
+.modal-content {
     background: black;
+    padding: 16px;
+    border: 4px solid white;
+    max-width: 300px;
+    position: relative;
+}
+
+.modal-content button {
+    width: 100px;
+    height: 32px;
 }
