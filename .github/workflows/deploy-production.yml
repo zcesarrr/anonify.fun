@@ -47,26 +47,49 @@ jobs:
           echo "client/app.js not found"
         fi
     
+    - name: Create dist directory structure
+      run: |
+        mkdir -p dist/static dist/server
+        echo "Created dist directory with static and server subdirectories"
+    
+    - name: Move static files to dist/static
+      run: |
+        # Mover archivos estáticos
+        mv index.html dist/static/
+        mv style.css dist/static/
+        mv app.js dist/static/
+        mv icons/ dist/static/
+        
+        echo "Moved static files to dist/static/"
+        echo "Static files: index.html, style.css, app.js, icons/"
+    
+    - name: Move server files to dist/server
+      run: |
+        # Mover toda la carpeta server
+        mv server/ dist/server/
+        
+        echo "Moved server directory to dist/server/"
+    
     - name: Remove underscore script references from index.html
       run: |
         # Crear copia de seguridad
-        cp index.html index.html.bak
+        cp dist/static/index.html dist/static/index.html.bak
         
         # Remover líneas que contengan referencias a archivos que empiecen con underscore
-        sed -i '/src="[^"]*\/_[^"]*"/d' index.html
-        sed -i '/href="[^"]*\/_[^"]*"/d' index.html
+        sed -i '/src="[^"]*\/_[^"]*"/d' dist/static/index.html
+        sed -i '/href="[^"]*\/_[^"]*"/d' dist/static/index.html
         
         # Remover comentarios que referencien archivos que empiecen con underscore
-        sed -i '/<!--.*client\/_.*-->/d' index.html
-        sed -i '/<!--.*\/_.*-->/d' index.html
+        sed -i '/<!--.*client\/_.*-->/d' dist/static/index.html
+        sed -i '/<!--.*\/_.*-->/d' dist/static/index.html
         
-        echo "Updated index.html - removed underscore file references"
+        echo "Updated dist/static/index.html - removed underscore file references"
     
     - name: Update script reference in index.html
       run: |
         # Cambiar la referencia de client/app.js a app.js
-        sed -i 's|client/app\.js|app.js|g' index.html
-        echo "Updated app.js reference in index.html"
+        sed -i 's|client/app\.js|app.js|g' dist/static/index.html
+        echo "Updated app.js reference in dist/static/index.html"
     
     - name: Show changes made
       run: |
@@ -74,10 +97,13 @@ jobs:
         git status --porcelain
         echo ""
         echo "=== Changes in index.html ==="
-        diff index.html.bak index.html || true
+        diff dist/static/index.html.bak dist/static/index.html || true
         echo ""
-        echo "=== Current directory structure ==="
-        find . -type f -name "*.js" -o -name "*.html" -o -name "*.css" | grep -v node_modules | sort
+        echo "=== Final dist directory structure ==="
+        find dist -type f | sort
+        echo ""
+        echo "=== Remaining files in root ==="
+        find . -maxdepth 1 -type f -name "*.js" -o -name "*.html" -o -name "*.css" -o -name "*.md" | sort
     
     - name: Commit and push changes to production branch
       env:
@@ -105,9 +131,24 @@ jobs:
         echo "- ❌ Removed \`_notes\` directory" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed \`sql\` directory" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed all files starting with \`_\` from \`client/\` directory" >> $GITHUB_STEP_SUMMARY
-        echo "- 📁 Moved \`client/app.js\` to root directory" >> $GITHUB_STEP_SUMMARY
+        echo "- 📁 Created \`dist/\` directory structure" >> $GITHUB_STEP_SUMMARY
+        echo "- 📁 Moved static files to \`dist/static/\` (index.html, style.css, app.js, icons/)" >> $GITHUB_STEP_SUMMARY
+        echo "- 📁 Moved \`server/\` directory to \`dist/server/\`" >> $GITHUB_STEP_SUMMARY
         echo "- 🔧 Updated \`index.html\` to remove underscore file references" >> $GITHUB_STEP_SUMMARY
         echo "- 🔗 Updated \`app.js\` script reference in \`index.html\`" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Production Branch" >> $GITHUB_STEP_SUMMARY
-        echo "The production-ready code is now available in the \`production\` branch." >> $GITHUB_STEP_SUMMARY
+        echo "The production-ready code is now available in the \`production\` branch with the following structure:" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "```" >> $GITHUB_STEP_SUMMARY
+        echo "dist/" >> $GITHUB_STEP_SUMMARY
+        echo "├── static/" >> $GITHUB_STEP_SUMMARY
+        echo "│   ├── index.html" >> $GITHUB_STEP_SUMMARY
+        echo "│   ├── style.css" >> $GITHUB_STEP_SUMMARY
+        echo "│   ├── app.js" >> $GITHUB_STEP_SUMMARY
+        echo "│   └── icons/" >> $GITHUB_STEP_SUMMARY
+        echo "└── server/" >> $GITHUB_STEP_SUMMARY
+        echo "    ├── server.js" >> $GITHUB_STEP_SUMMARY
+        echo "    ├── package.json" >> $GITHUB_STEP_SUMMARY
+        echo "    └── config/" >> $GITHUB_STEP_SUMMARY
+        echo "```" >> $GITHUB_STEP_SUMMARY
