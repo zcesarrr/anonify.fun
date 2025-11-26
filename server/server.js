@@ -101,7 +101,12 @@ app.post('/send', sendMessagesLimiter, async(req, res) => {
         
         const data = {
             status: "success",
-            message: "The message has been sent!"
+            message: "The message has been sent!",
+            data: {
+                id: result.id,
+                message: result.msg,
+                created_at: result.created_at
+            }
         }
 
         res.status(200).json(data);
