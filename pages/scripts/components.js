@@ -4,7 +4,7 @@ class HeaderComponent extends HTMLElement {
         <header>
             <div id="headerNavigation">
                 <a href="index.html" class="nav-button">Home</a>
-                <a href="#" class="nav-button">Messages</a>
+                <a href="messages.html" class="nav-button">Messages</a>
                 <a href="about.html" class="nav-button">About</a>
             </div>
         </header>

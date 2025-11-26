@@ -29,7 +29,7 @@ initApp();
 
 // Submit Message Handle
 const adviceCopy = document.createElement("p")
-adviceCopy.innerHTML = `<a href="" class="highlight-nav-button" id="copyIDbtn">Copy</a> and save your request ID to search your answer on <a href="#" class="highlight-nav-button">messages</a> when it's available!`;
+adviceCopy.innerHTML = `<a href="" class="highlight-nav-button" id="copyIDbtn">Copy</a> and save your request ID to search your answer on <a href="messages.html" class="highlight-nav-button">messages</a> when it's available!`;
 let adviceCopyInstance;
 
 let hideStatusTextTimeout;
