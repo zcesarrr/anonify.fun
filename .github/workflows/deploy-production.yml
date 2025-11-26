@@ -1,0 +1,106 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch: # Permite ejecutar manualmente
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Necesario para crear nueva rama
+    
+    - name: Setup Git
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+    
+    - name: Create or checkout production branch
+      run: |
+        # Crear rama production si no existe, o hacer checkout si existe
+        git checkout -B production
+    
+    - name: Remove _notes and sql directories
+      run: |
+        rm -rf _notes sql
+        echo "Removed _notes and sql directories"
+    
+    - name: Remove files starting with underscore from client directory
+      run: |
+        find client -name "_*" -type f -delete
+        echo "Removed files starting with underscore from client directory"
+    
+    - name: Move app.js to root directory
+      run: |
+        if [ -f client/app.js ]; then
+          mv client/app.js ./app.js
+          echo "Moved client/app.js to root directory"
+        else
+          echo "client/app.js not found"
+        fi
+    
+    - name: Remove underscore script references from index.html
+      run: |
+        # Crear copia de seguridad
+        cp index.html index.html.bak
+        
+        # Remover líneas que contengan referencias a archivos que empiecen con underscore
+        sed -i '/src="[^"]*\/_[^"]*"/d' index.html
+        sed -i '/href="[^"]*\/_[^"]*"/d' index.html
+        
+        # Remover comentarios que referencien archivos que empiecen con underscore
+        sed -i '/<!--.*client\/_.*-->/d' index.html
+        sed -i '/<!--.*\/_.*-->/d' index.html
+        
+        echo "Updated index.html - removed underscore file references"
+    
+    - name: Update script reference in index.html
+      run: |
+        # Cambiar la referencia de client/app.js a app.js
+        sed -i 's|client/app\.js|app.js|g' index.html
+        echo "Updated app.js reference in index.html"
+    
+    - name: Show changes made
+      run: |
+        echo "=== Files and directories removed/modified ==="
+        git status --porcelain
+        echo ""
+        echo "=== Changes in index.html ==="
+        diff index.html.bak index.html || true
+        echo ""
+        echo "=== Current directory structure ==="
+        find . -type f -name "*.js" -o -name "*.html" -o -name "*.css" | grep -v node_modules | sort
+    
+    - name: Commit and push changes to production branch
+      run: |
+        git add .
+        git add -u # Para incluir archivos eliminados
+        
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "🚀 Production build - $(date '+%Y-%m-%d %H:%M:%S')"
+          git push origin production --force
+          echo "✅ Changes pushed to production branch"
+        fi
+    
+    - name: Create production summary
+      run: |
+        echo "## 🚀 Production Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Timestamp:** $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "**Branch:** production" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Changes Made:" >> $GITHUB_STEP_SUMMARY
+        echo "- ❌ Removed \`_notes\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- ❌ Removed \`sql\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- ❌ Removed all files starting with \`_\` from \`client/\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- 📁 Moved \`client/app.js\` to root directory" >> $GITHUB_STEP_SUMMARY
+        echo "- 🔧 Updated \`index.html\` to remove underscore file references" >> $GITHUB_STEP_SUMMARY
+        echo "- 🔗 Updated \`app.js\` script reference in \`index.html\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Production Branch" >> $GITHUB_STEP_SUMMARY
+        echo "The production-ready code is now available in the \`production\` branch." >> $GITHUB_STEP_SUMMARY
