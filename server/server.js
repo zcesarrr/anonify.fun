@@ -37,7 +37,7 @@ const getMessagesLimiter = rateLimit({
 });
 
 const sendMessagesLimiter = rateLimit({
-    windowMs: 10 * 1000,
+    windowMs: 30 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,
