@@ -60,7 +60,7 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
         }
 
         const client = await pool.connect();
-        const result = await client.query('SELECT * FROM messages ORDER BY id DESC LIMIT $1', [limit]);
+        const result = await client.query('SELECT * FROM messages ORDER BY created_at DESC LIMIT $1', [limit]);
         client.release();
         
         const data = {
