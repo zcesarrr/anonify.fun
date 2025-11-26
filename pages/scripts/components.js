@@ -3,9 +3,9 @@ class HeaderComponent extends HTMLElement {
         this.innerHTML = `
         <header>
             <div id="headerNavigation">
-                <a href="index.html" class="nav-button">Home</a>
-                <a href="messages.html" class="nav-button">Messages</a>
-                <a href="about.html" class="nav-button">About</a>
+                <a href="index.html" class="nav-button" id="header-nav-home">Home</a>
+                <a href="messages.html" class="nav-button" id="header-nav-messages">Messages</a>
+                <a href="about.html" class="nav-button" id="header-nav-about">About</a>
             </div>
         </header>
     `;

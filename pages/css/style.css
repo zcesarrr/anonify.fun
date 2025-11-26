@@ -167,3 +167,7 @@ footer {
     width: 100px;
     height: 32px;
 }
+
+.nav-button-selected {
+    color: gold;
+}
