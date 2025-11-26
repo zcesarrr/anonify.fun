@@ -52,6 +52,7 @@ main {
 }
 
 #messageFormResult {
+    margin-top: 16px;
     justify-self: center;
     text-align: center;
 }
