@@ -152,9 +152,12 @@ footer {
     align-items: center;
 }
 
+h2 {
+    font-weight: normal;
+}
+
 .modal-content h2{
     margin-top: 0;
-    font-weight: normal;
 }
 
 .modal-content {
