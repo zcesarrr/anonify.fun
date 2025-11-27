@@ -122,7 +122,17 @@ h1 {
     box-sizing: border-box;
 }
 
+#searchContainer form input:focus{
+    border: 2px solid  greenyellow;
+    outline: none;
+}
+
 #paste-button {
     width: 92px;
     height: 48px;
+}
+
+#search-message-button {
+    width: 100%;
+    height: 32px;
 }
