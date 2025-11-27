@@ -5,7 +5,8 @@ h1 {
 
 #mainContent {
     display: grid;
-    padding: 24px;
+    padding-inline: 16px;
+    padding-top: 12px;
     grid-template-columns: 3fr 2fr;
     gap: 16px;
     max-height: 80vh;
