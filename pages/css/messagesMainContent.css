@@ -86,13 +86,17 @@ h1 {
         order: -1;
     }
 
-    #paste-button {
-        display: none;
-    }
+    
 
     .messageBox p {
         -webkit-line-clamp: 6;
         line-clamp: 6;
+    }
+}
+
+@media (max-width: 570px) {
+    #paste-button {
+        display: none;
     }
 }
 
