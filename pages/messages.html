@@ -80,10 +80,10 @@
            <h1>Search</h1>
            <form action="#">
                 <div id="search-input">
-                    <input type="search">
+                    <input type="search" required minlength="36" maxlength="36" id="search-box-input">
                     <button type="button" id="paste-button" class="one-click-button">Paste</button>
                 </div>
-                <button type="button" id="search-message-button" class="one-click-button">
+                <button type="button" id="search-message-button" class="one-click-button" disabled>
                     Search
                 </button>
            </form>
@@ -93,5 +93,6 @@
     <footer-component></footer-component>
 
     <script src="scripts/components_logic.js" id="components-logic-script" data-current-index="2" defer></script>
+    <script src="scripts/messagesPage.js"></script>
 </body>
 </html>
