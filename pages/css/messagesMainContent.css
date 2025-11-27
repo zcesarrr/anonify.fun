@@ -1,17 +1,27 @@
 h1 {
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 32px;
 }
 
 #mainContent {
     display: grid;
     padding: 24px;
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 #mainContent div{
-    background: gray;
+    background: rgb(24, 24, 24);
 }
 
-#messagesContainer {
-    
+#messagesContainer, #searchContainer {
+    height: 100%;
+}
+
+.messageBox {
+    background: black;
+    border: 2px white solid;
+    max-width: 400px;
+    height: 175px;
+    max-height: 175px;
 }
