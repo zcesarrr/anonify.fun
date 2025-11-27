@@ -107,15 +107,10 @@ h1 {
     margin-top: 0px;
 }
 
-#searchContainer {
-    width: 100%;
-}
-
-#seach-input {
+#search-input {
     display: flex;
     gap: 8px;
-    justify-content: space-around;
-    width: 100%;
+    margin-bottom: 8px;
 }
 
 #searchContainer form input {
@@ -124,6 +119,7 @@ h1 {
     border: 2px solid white;
     font-size: 24px;
     box-sizing: border-box;
+    width: 100%;
 }
 
 #searchContainer form input:focus{
@@ -132,7 +128,7 @@ h1 {
 }
 
 #paste-button {
-    width: 92px;
+    width: 128px;
     height: 48px;
 }
 
