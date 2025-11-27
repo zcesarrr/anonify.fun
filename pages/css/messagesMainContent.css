@@ -72,3 +72,22 @@ h1 {
 .messageBox p {
     margin-top: 0px;
 }
+
+#searchContainer form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#searchContainer form input {
+    padding: 8px;
+    background: black;
+    border: 2px solid white;
+    font-size: 24px;
+    width: 80%;
+}
+
+#paste-button {
+    width: 92px;
+    height: 48px;
+}
