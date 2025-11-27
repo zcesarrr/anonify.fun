@@ -69,10 +69,24 @@ h1 {
     }
 
     #mainContent {
-        display: block;
+        display: grid;
+        grid-template-columns: unset;
+        grid-template-rows: 1fr 6fr;
+    }
+
+    #mainContent h1 {
+        margin-bottom: 6px;
+    }
+
+    #searchContainer h1 {
+        margin-bottom: 6px;
     }
 
     #searchContainer {
+        order: -1;
+    }
+
+    #paste-button {
         display: none;
     }
 
