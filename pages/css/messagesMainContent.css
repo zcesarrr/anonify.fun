@@ -23,14 +23,31 @@ h1 {
 .messageBox {
     background: black;
     border: 2px white solid;
-
+    padding: 16px;
+    
     min-width: 100px;
     max-width: 350px;
-
     min-height: 50px;
     max-height: 150px;
-    
-    padding: 16px;
+}
+
+@media (min-width: 768px) {
+    .messageBox {
+        width: 350px;    
+        height: 150px;   
+        min-width: unset;
+        max-width: unset;
+        min-height: unset;
+        max-height: unset;
+    }
+}
+
+@media (max-width: 767px) {
+    .messageBox {
+        width: 100%;
+        min-height: 100px;
+        max-height: 200px;
+    }
 }
 
 .messageBox p {
