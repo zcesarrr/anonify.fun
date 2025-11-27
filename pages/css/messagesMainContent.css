@@ -6,7 +6,7 @@ h1 {
 #mainContent {
     display: grid;
     padding: 24px;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 2fr;
     gap: 16px;
 }
 
@@ -26,14 +26,16 @@ h1 {
     padding: 16px;
     
     min-width: 100px;
-    max-width: 350px;
+    max-width: 300px;
     min-height: 50px;
     max-height: 150px;
+
+    overflow-y: auto;
 }
 
 @media (min-width: 768px) {
     .messageBox {
-        width: 350px;    
+        width: 300px;    
         height: 150px;   
         min-width: unset;
         max-width: unset;
