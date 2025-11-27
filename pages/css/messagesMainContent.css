@@ -65,7 +65,7 @@ h1 {
     .messageBox {
         width: 100%;
         min-height: 100px;
-        max-height: 200px;
+        max-height: 100px;
     }
 
     #mainContent {
@@ -74,6 +74,11 @@ h1 {
 
     #searchContainer {
         display: none;
+    }
+
+    .messageBox p {
+        -webkit-line-clamp: 6;
+        line-clamp: 6;
     }
 }
 
