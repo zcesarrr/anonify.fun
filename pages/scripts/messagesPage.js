@@ -186,13 +186,11 @@ async function loadMessages() {
                         </div>
                         <p>${item.msg}</p>
                     `;
-                    messageItem.dataset.answer = item.answer;
-
                     messagesContent.appendChild(messageItem);
 
                     messageItem.addEventListener("click", (e) => {
                         document.getElementById("cesarzResponseModal").style.display = "flex";
-                        document.getElementById("cesarzResponseModalContent").textContent = item.dataset.answer;
+                        document.getElementById("cesarzResponseModalContent").textContent = item.answer;
                     });
                 });
             } else {
