@@ -146,8 +146,16 @@ h1 {
     height: 32px;
 }
 
+#yourMessageModal .modal-content{
+    width: 100%;
+}
+
 #yourMessage {
     width: 70%;
+}
+
+#yourMessageModalBox {
+    width: 85%;
 }
 
 .messageBox-createdAt {
