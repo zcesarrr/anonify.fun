@@ -2,8 +2,19 @@ const searchInputField = document.getElementById("search-box-input");
 const searchSubmitButton = document.getElementById("search-message-button");
 const searchPasteButton = document.getElementById("paste-button");
 const searchServerStatus = document.getElementById("search-server-status");
+const searchContainer = document.getElementById("searchContainer");
 
 let hideStatusTextTimeout;
+
+const yourMessageBox = document.createElement("div");
+yourMessageBox.className = "messageBox";
+yourMessageBox.setAttribute("id", "yourMessage");
+yourMessageBox.innerHTML = `
+    <p class="messageBox-createdAt" id="yourMessage-messageBox-createdAt">11/27/2025 - 17:52</p>
+    <p id="yourMessage-messageBox-content">hola que tal probnaod</p>
+`;
+
+let yourMessageBoxInstance;
 
 searchInputField.addEventListener("input", (e) => {
     checkSearchInputLength();
@@ -46,6 +57,11 @@ searchSubmitButton.addEventListener("click", async (e) => {
     searchServerStatus.textContent = "Searching...";
     clearTimeout(hideStatusTextTimeout);
 
+    if (yourMessageBoxInstance != null) {
+        yourMessageBoxInstance.remove();
+        yourMessageBoxInstance = null;
+    }
+
     try {
         const res = await fetch(`${config.api_key}search`, {
             method: "POST",
@@ -66,7 +82,17 @@ searchSubmitButton.addEventListener("click", async (e) => {
             searchServerStatus.className = data.data ? "statusOk" : "";
 
             if (data.data) {
+                if (yourMessageBoxInstance == null) {
+                    const created_at = data.data.created_at.split('T');
+                    console.log(created_at[0]);
 
+                    const created_at_time = created_at[1].split('.');
+                    console.log(created_at_time[0]);
+                    
+                    yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
+                    document.getElementById("yourMessage-messageBox-createdAt").textContent = created_at[0] + " [" + created_at_time[0] + "]";
+                    document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
+                }
             }
         } else {
             searchServerStatus.textContent = (data.message || "Unknown error");
