@@ -16,6 +16,7 @@ yourMessageBox.innerHTML = `
         <div class="messageBox-createdAt-time" id="yourMessage-messageBox-createdAt-time">17:52</div>
     </div>
     <p id="yourMessage-messageBox-content">hola que tal probnaod</p>
+    <p id="cesarz-response">> CesarZ's response</>
 `;
 
 let yourMessageBoxInstance;
@@ -93,7 +94,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
                 const created_at = data.data.created_at.split('T');
                 const created_at_time = created_at[1].split('.');
 
-                if (window.screen.width > 829) {
+                if (window.innerWidth > 829) {
                     if (yourMessageBoxInstance == null) {
                         yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
                     }
