@@ -82,6 +82,42 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
     }
 });
 
+app.post('/search', async(req, res) => {
+    try {
+        const id = req.body.id;
+
+        if (id === null || id === "") {
+            const data400 = {
+                status: "error",
+                message: "'id' is invalid.",
+            }
+
+            return res.status(400).json(data400);
+        }
+
+        const client = await pool.connect();
+        const result = await client.query('SELECT * FROM messages WHERE id = $1', [id]);
+        client.release();
+        
+        const data = {
+            status: "success",
+            message: "A message was found!",
+            data: result.rows[0]
+        }
+
+        res.status(200).json(data);
+    } catch (err) {
+        console.error("Error executing query", err);
+
+        const data = {
+            status: "error",
+            message: "No messages were found with the provided ID."
+        }
+
+        res.status(500).json(data);
+    }
+});
+
 app.post('/send', sendMessagesLimiter, async(req, res) => {
     try {
         let message = req.body.message;

@@ -40,4 +40,10 @@ searchSubmitButton.addEventListener("click", async (e) => {
     const payload = {
         id: searchInputField.value
     };
+
+    messageFormResult.textContent = "Searching...";
+
+    try {
+        const res = await fetch()
+    }
 });
