@@ -6,3 +6,12 @@ main div {
     font-size: 24px;
     max-width: 600px;
 }
+
+#rulesModal ul{
+    display: flex;
+    list-style-type: none;
+    gap: 4px;
+    margin-left: 0;
+    padding-left: 16px;
+    flex-direction: column;
+}
