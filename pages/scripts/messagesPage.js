@@ -126,6 +126,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
 
 const serverStatusMessages = document.getElementById("server-status-messages");
 const retryButtonMessages = document.getElementById("retry-button-messages");
+const messagesContent = document.getElementById("messagesContent");
 
 async function loadMessages() {
     retryButtonMessages.hidden = true;
@@ -162,6 +163,25 @@ async function loadMessages() {
 
             if (data.data) {
                 console.log(data.data);
+
+                data.data.map((item) => {
+                    document.getElementById("status-container").style.display = "none";
+
+                    const created_at = item.created_at.split('T');
+                    const created_at_time = created_at[1].split('.');
+
+                    const messageItem = document.createElement("div");
+                    messageItem.className = "messageBox";
+                    messageItem.innerHTML = `
+                        <div class="messageBox-createdAt">
+                            <div class="messageBox-createdAt-date">${created_at[0]}</div>
+                            -
+                            <div class="messageBox-createdAt-time">${created_at_time[0]}</div>
+                        </div>
+                        <p>${item.msg}</p>
+                    `;
+                    messagesContent.appendChild(messageItem);
+                });
             }
         } else {
             serverStatusMessages.textContent = (data.message || "Unknown error");

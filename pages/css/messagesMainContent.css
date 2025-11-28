@@ -98,6 +98,10 @@ h1 {
         -webkit-line-clamp: 5;
         line-clamp: 5;
     }
+
+        #messagesContent {
+            padding-bottom: 16px;
+        }
 }
 
 @media (max-width: 570px) {
