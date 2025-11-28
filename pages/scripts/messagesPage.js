@@ -189,8 +189,13 @@ async function loadMessages() {
                     messagesContent.appendChild(messageItem);
 
                     messageItem.addEventListener("click", (e) => {
+                        messageItem.classList.add("selected-message");
                         document.getElementById("cesarzResponseModal").style.display = "flex";
                         document.getElementById("cesarzResponseModalContent").textContent = item.answer;
+                    });
+
+                    document.getElementById("close-cesarz-response").addEventListener("click", () => {
+                        messageItem.classList.remove("selected-message");
                     });
                 });
             } else {

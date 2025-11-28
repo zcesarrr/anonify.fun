@@ -154,8 +154,8 @@ footer {
     overflow: auto;
     background: rgba(0, 0, 0, 0.85);
 
-    display: none;
     display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }

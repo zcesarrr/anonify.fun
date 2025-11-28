@@ -188,3 +188,7 @@ h1 {
 .messageBoxClickeable {
     cursor: pointer;
 }
+
+.selected-message {
+    border: 2px yellow solid;
+}
