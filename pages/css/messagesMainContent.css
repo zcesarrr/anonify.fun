@@ -176,3 +176,7 @@ h1 {
     width: 128px;
     height: 32px;
 }
+
+.cesarz-response {
+    color: yellow;
+}

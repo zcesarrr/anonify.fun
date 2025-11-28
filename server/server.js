@@ -70,7 +70,7 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
         }
 
         const client = await pool.connect();
-        const result = await client.query(`SELECT * FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''} ORDER BY created_at DESC LIMIT $1`, [limit]);
+        const result = await client.query(`SELECT msg, created_at, answer, answer_updated_at FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''} ORDER BY created_at DESC LIMIT $1`, [limit]);
         client.release();
         
         const data = {

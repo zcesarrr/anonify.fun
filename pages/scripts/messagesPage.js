@@ -16,7 +16,7 @@ yourMessageBox.innerHTML = `
         </div>
         <p id="yourMessage-messageBox-content">hola que tal probnaod</p>
     </div>
-    <p id="cesarz-response">> CesarZ's response</p>
+    <p id="yourMessage-cesarz-response" class="cesarz-response">> CesarZ's response</p>
 `;
 
 let yourMessageBoxInstance;
@@ -105,6 +105,10 @@ searchSubmitButton.addEventListener("click", async (e) => {
                 document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
                 document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
                 document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
+
+                if (data.data.answer != null || data.data.answer != "") {
+                    document.getElementById("yourMessage-cesarz-response").textContent = "> " + data.data.answer;
+                }
             }
         } else {
             searchServerStatus.textContent = (data.message || "Unknown error");
