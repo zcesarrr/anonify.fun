@@ -36,6 +36,15 @@ const getMessagesLimiter = rateLimit({
     handler: limiterHandler,
 });
 
+const searchMessageLimiter = rateLimit({
+    windowMs: 15 * 1000,
+    max: 1,
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: limiterHandler,
+});
+
+
 const sendMessagesLimiter = rateLimit({
     windowMs: 5 * 1000,
     max: 1,
@@ -82,7 +91,7 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
     }
 });
 
-app.post('/search', async(req, res) => {
+app.post('/search', searchMessageLimiter, async(req, res) => {
     try {
         const id = req.body.id;
 

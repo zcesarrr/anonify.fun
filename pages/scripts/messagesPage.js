@@ -61,11 +61,6 @@ searchSubmitButton.addEventListener("click", async (e) => {
     searchServerStatus.textContent = "Searching...";
     clearTimeout(hideStatusTextTimeout);
 
-    if (yourMessageBoxInstance != null) {
-        yourMessageBoxInstance.remove();
-        yourMessageBoxInstance = null;
-    }
-
     try {
         const res = await fetch(`${config.api_key}search`, {
             method: "POST",
@@ -77,6 +72,10 @@ searchSubmitButton.addEventListener("click", async (e) => {
             const err = await res.json().catch(() => null);
             searchServerStatus.textContent = "Server error: " + (err?.message || res.statusText);
             searchServerStatus.className = "statusFailed";
+
+            if (res.status == 429) {
+                searchServerStatus.textContent += ` (Retry After: ${err.retryAfter})`
+            }
             return;
         }
 
@@ -84,6 +83,11 @@ searchSubmitButton.addEventListener("click", async (e) => {
         if (data.status === "success") {
             searchServerStatus.textContent = data.message;
             searchServerStatus.className = data.data ? "statusOk" : "";
+
+            if (yourMessageBoxInstance != null) {
+                yourMessageBoxInstance.remove();
+                yourMessageBoxInstance = null;
+            }
 
             if (data.data) {
                 if (yourMessageBoxInstance == null) {
