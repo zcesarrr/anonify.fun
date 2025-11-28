@@ -122,3 +122,61 @@ searchSubmitButton.addEventListener("click", async (e) => {
         }, 6000);
     }
 });
+
+
+const serverStatusMessages = document.getElementById("serverStatusMessages");
+
+async function loadMessages() {
+    const payload = {
+        limit: 5
+    };
+
+    try {
+        const res = await fetch(`${config.api_key}messages`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => null);
+            serverStatusMessages.textContent = "Server error: " + (err?.message || res.statusText);
+            serverStatusMessages.className = "statusFailed";
+
+            if (res.status == 429) {
+                serverStatusMessages.textContent += ` (Retry After: ${err.retryAfter})`
+            }
+            return;
+        }
+
+        const data = await res.json();
+        if (data.status === "success") {
+            serverStatusMessages.textContent = data.message;
+            serverStatusMessages.className = "statusOk";
+            serverStatusMessages.style.display = "none";
+
+            if (data.data) {
+                const created_at = data.data.created_at.split('T');
+                const created_at_time = created_at[1].split('.');
+
+                if (window.innerWidth > 829) {
+                    if (yourMessageBoxInstance == null) {
+                        yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
+                    }
+                } else {
+                    document.getElementById("yourMessageModal").style.display = "flex";
+                }
+
+                document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
+                document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
+                document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
+            }
+        } else {
+            serverStatusMessages.textContent = (data.message || "Unknown error");
+        }
+    } catch (err) {
+        console.error(err);
+        serverStatusMessages.textContent = "Unable connect to server";
+        serverStatusMessages.className = "statusFailed";
+    }
+};
