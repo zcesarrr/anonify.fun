@@ -132,7 +132,7 @@ async function loadMessages() {
     retryButtonMessages.hidden = true;
 
     const payload = {
-        limit: 5
+        limit: -1
     };
 
     try {
