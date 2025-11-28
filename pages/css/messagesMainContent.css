@@ -180,3 +180,11 @@ h1 {
 .cesarz-response {
     color: yellow;
 }
+
+#cesarzResponseModal .modal-content{ 
+    width: 350px;
+}
+
+.messageBoxClickeable {
+    cursor: pointer;
+}

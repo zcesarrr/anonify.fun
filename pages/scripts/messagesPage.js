@@ -177,7 +177,7 @@ async function loadMessages() {
                     const created_at_time = created_at[1].split('.');
 
                     const messageItem = document.createElement("div");
-                    messageItem.className = "messageBox";
+                    messageItem.className = "messageBox messageBoxClickeable";
                     messageItem.innerHTML = `
                         <div class="messageBox-createdAt">
                             <div class="messageBox-createdAt-date">${created_at[0]}</div>
@@ -186,7 +186,14 @@ async function loadMessages() {
                         </div>
                         <p>${item.msg}</p>
                     `;
+                    messageItem.dataset.answer = item.answer;
+
                     messagesContent.appendChild(messageItem);
+
+                    messageItem.addEventListener("click", (e) => {
+                        document.getElementById("cesarzResponseModal").style.display = "flex";
+                        document.getElementById("cesarzResponseModalContent").textContent = item.dataset.answer;
+                    });
                 });
             } else {
                 serverStatusMessages.textContent = "No messages found.";
