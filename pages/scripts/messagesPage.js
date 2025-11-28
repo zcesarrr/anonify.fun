@@ -7,16 +7,16 @@ const searchContainer = document.getElementById("searchContainer");
 let hideStatusTextTimeout;
 
 const yourMessageBox = document.createElement("div");
-yourMessageBox.className = "messageBox";
-yourMessageBox.setAttribute("id", "yourMessage");
 yourMessageBox.innerHTML = `
-    <div class="messageBox-createdAt">
-        <div class="messageBox-createdAt-date" id="yourMessage-messageBox-createdAt-date">11/27/2025</div>
-        -
-        <div class="messageBox-createdAt-time" id="yourMessage-messageBox-createdAt-time">17:52</div>
+    <div class="messageBox" id="yourMessage">
+        <div class="messageBox-createdAt">
+            <div class="messageBox-createdAt-date" id="yourMessage-messageBox-createdAt-date">11/27/2025</div>
+            -
+            <div class="messageBox-createdAt-time" id="yourMessage-messageBox-createdAt-time">17:52</div>
+        </div>
+        <p id="yourMessage-messageBox-content">hola que tal probnaod</p>
     </div>
-    <p id="yourMessage-messageBox-content">hola que tal probnaod</p>
-    <p id="cesarz-response">> CesarZ's response</>
+    <p id="cesarz-response">> CesarZ's response</p>
 `;
 
 let yourMessageBoxInstance;
