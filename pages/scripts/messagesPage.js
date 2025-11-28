@@ -90,16 +90,20 @@ searchSubmitButton.addEventListener("click", async (e) => {
             }
 
             if (data.data) {
-                if (yourMessageBoxInstance == null) {
-                    const created_at = data.data.created_at.split('T');
+                const created_at = data.data.created_at.split('T');
+                const created_at_time = created_at[1].split('.');
 
-                    const created_at_time = created_at[1].split('.');
-                    
-                    yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
-                    document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
-                    document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
-                    document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
+                if (window.screen.width > 829) {
+                    if (yourMessageBoxInstance == null) {
+                        yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
+                    }
+                } else {
+                    document.getElementById("yourMessageModal").style.display = "flex";
                 }
+
+                document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
+                document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
+                document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
             }
         } else {
             searchServerStatus.textContent = (data.message || "Unknown error");

@@ -37,7 +37,7 @@ const getMessagesLimiter = rateLimit({
 });
 
 const searchMessageLimiter = rateLimit({
-    windowMs: 15 * 1000,
+    windowMs: 1 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,
