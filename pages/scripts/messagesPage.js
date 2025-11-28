@@ -132,7 +132,8 @@ async function loadMessages() {
     retryButtonMessages.hidden = true;
 
     const payload = {
-        limit: -1
+        limit: -1,
+        answerRequired:true
     };
 
     try {
@@ -157,12 +158,10 @@ async function loadMessages() {
 
         const data = await res.json();
         if (data.status === "success") {
-            serverStatusMessages.textContent = data.message;
-            serverStatusMessages.className = "statusOk";
-            serverStatusMessages.style.display = "none";
-
-            if (data.data) {
-                console.log(data.data);
+            if (data.data.length > 0) {
+                serverStatusMessages.textContent = data.message;
+                serverStatusMessages.className = "statusOk";
+                serverStatusMessages.style.display = "none";
 
                 data.data.map((item) => {
                     document.getElementById("status-container").style.display = "none";
@@ -182,6 +181,9 @@ async function loadMessages() {
                     `;
                     messagesContent.appendChild(messageItem);
                 });
+            } else {
+                serverStatusMessages.textContent = "No messages found.";
+                serverStatusMessages.className = "";
             }
         } else {
             serverStatusMessages.textContent = (data.message || "Unknown error");

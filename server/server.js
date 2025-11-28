@@ -29,16 +29,16 @@ const limiterHandler = (req, res) => {
 }
 
 const getMessagesLimiter = rateLimit({
-    windowMs: 3 * 1000,
-    max: 1,
+    windowMs: 60 * 1000,
+    max: 5,
     standardHeaders: true,
     legacyHeaders: false,
     handler: limiterHandler,
 });
 
 const searchMessageLimiter = rateLimit({
-    windowMs: 15 * 1000,
-    max: 1,
+    windowMs: 30 * 1000,
+    max: 5,
     standardHeaders: true,
     legacyHeaders: false,
     handler: limiterHandler,
@@ -56,6 +56,7 @@ const sendMessagesLimiter = rateLimit({
 app.post('/messages', getMessagesLimiter, async(req, res) => {
     try {
         let limit = req.body.limit || 10;
+        let answerRequired = req.body.answerRequired;
 
         if (limit == -1) limit = 99999;
 
@@ -69,7 +70,7 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
         }
 
         const client = await pool.connect();
-        const result = await client.query('SELECT * FROM messages ORDER BY created_at DESC LIMIT $1', [limit]);
+        const result = await client.query(`SELECT * FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''} ORDER BY created_at DESC LIMIT $1`, [limit]);
         client.release();
         
         const data = {
