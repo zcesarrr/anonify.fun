@@ -84,7 +84,7 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
 
         const data = {
             status: "error",
-            message: "Server error"
+            message: "Something went wrong."
         }
 
         res.status(500).json(data);
