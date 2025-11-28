@@ -10,7 +10,11 @@ const yourMessageBox = document.createElement("div");
 yourMessageBox.className = "messageBox";
 yourMessageBox.setAttribute("id", "yourMessage");
 yourMessageBox.innerHTML = `
-    <p class="messageBox-createdAt" id="yourMessage-messageBox-createdAt">11/27/2025 - 17:52</p>
+    <div class="messageBox-createdAt">
+        <div class="messageBox-createdAt-date" id="yourMessage-messageBox-createdAt-date">11/27/2025</div>
+        -
+        <div class="messageBox-createdAt-time" id="yourMessage-messageBox-createdAt-time">17:52</div>
+    </div>
     <p id="yourMessage-messageBox-content">hola que tal probnaod</p>
 `;
 
@@ -90,7 +94,8 @@ searchSubmitButton.addEventListener("click", async (e) => {
                     console.log(created_at_time[0]);
                     
                     yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
-                    document.getElementById("yourMessage-messageBox-createdAt").textContent = created_at[0] + " [" + created_at_time[0] + "]";
+                    document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
+                    document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
                     document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
                 }
             }

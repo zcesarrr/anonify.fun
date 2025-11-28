@@ -151,6 +151,11 @@ h1 {
 }
 
 .messageBox-createdAt {
-    color: greenyellow;
+    display: flex;
+    gap: 6px;
     padding-bottom: 6px;
+}
+
+.messageBox-createdAt-date, .messageBox-createdAt-time {
+    color: greenyellow;
 }
