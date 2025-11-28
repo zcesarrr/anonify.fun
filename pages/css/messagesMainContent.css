@@ -85,6 +85,7 @@ h1 {
 
     #searchContainer {
         order: -1;
+        border-bottom: 2px solid white;
     }
 
     #searchContainer form {

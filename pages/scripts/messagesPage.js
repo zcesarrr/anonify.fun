@@ -3,6 +3,8 @@ const searchSubmitButton = document.getElementById("search-message-button");
 const searchPasteButton = document.getElementById("paste-button");
 const searchServerStatus = document.getElementById("search-server-status");
 
+let hideStatusTextTimeout;
+
 searchInputField.addEventListener("input", (e) => {
     checkSearchInputLength();
 });
@@ -42,6 +44,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
     };
 
     searchServerStatus.textContent = "Searching...";
+    clearTimeout(hideStatusTextTimeout);
 
     try {
         const res = await fetch(`${config.api_key}search`, {
@@ -63,7 +66,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
             searchServerStatus.className = data.data ? "statusOk" : "";
 
             if (data.data) {
-                
+
             }
         } else {
             searchServerStatus.textContent = (data.message || "Unknown error");
@@ -75,5 +78,9 @@ searchSubmitButton.addEventListener("click", async (e) => {
     } finally {
         searchInputField.disabled = false;
         searchSubmitButton.disabled = false;
+
+        hideStatusTextTimeout = setTimeout(() => {
+            searchServerStatus.textContent = "";
+        }, 6000);
     }
 });
