@@ -124,7 +124,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
 });
 
 
-const serverStatusMessages = document.getElementById("serverStatusMessages");
+const serverStatusMessages = document.getElementById("server-status-messages");
 
 async function loadMessages() {
     const payload = {
@@ -156,20 +156,7 @@ async function loadMessages() {
             serverStatusMessages.style.display = "none";
 
             if (data.data) {
-                const created_at = data.data.created_at.split('T');
-                const created_at_time = created_at[1].split('.');
-
-                if (window.innerWidth > 829) {
-                    if (yourMessageBoxInstance == null) {
-                        yourMessageBoxInstance = searchContainer.appendChild(yourMessageBox);
-                    }
-                } else {
-                    document.getElementById("yourMessageModal").style.display = "flex";
-                }
-
-                document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
-                document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
-                document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
+                console.log(data.data);
             }
         } else {
             serverStatusMessages.textContent = (data.message || "Unknown error");
@@ -180,3 +167,5 @@ async function loadMessages() {
         serverStatusMessages.className = "statusFailed";
     }
 };
+
+loadMessages();
