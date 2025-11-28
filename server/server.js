@@ -98,20 +98,29 @@ app.post('/search', async(req, res) => {
         const client = await pool.connect();
         const result = await client.query('SELECT * FROM messages WHERE id = $1', [id]);
         client.release();
-        
-        const data = {
-            status: "success",
-            message: "A message was found!",
-            data: result.rows[0]
-        }
 
-        res.status(200).json(data);
+        if (result.rows.length > 0) {
+            const data = {
+                status: "success",
+                message: "A message was found!",
+                data: result.rows[0]
+            }
+
+            return res.status(200).json(data);
+        } else {
+            const data = {
+                status: "success",
+                message: "No messages were found with the provided ID.",
+            }
+
+            return res.status(200).json(data);
+        }
     } catch (err) {
         console.error("Error executing query", err);
 
         const data = {
             status: "error",
-            message: "No messages were found with the provided ID."
+            message: "Something went wrong."
         }
 
         res.status(500).json(data);

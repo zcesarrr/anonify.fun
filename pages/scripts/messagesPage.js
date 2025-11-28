@@ -41,9 +41,39 @@ searchSubmitButton.addEventListener("click", async (e) => {
         id: searchInputField.value
     };
 
-    messageFormResult.textContent = "Searching...";
+    searchServerStatus.textContent = "Searching...";
 
     try {
-        const res = await fetch()
+        const res = await fetch(`${config.api_key}search`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => null);
+            searchServerStatus.textContent = "Server error: " + (err?.message || res.statusText);
+            searchServerStatus.className = "statusFailed";
+            return;
+        }
+
+        const data = await res.json();
+        if (data.status === "success") {
+            searchServerStatus.textContent = data.message;
+            searchServerStatus.className = data.data ? "statusOk" : "";
+
+            if (data.data) {
+                
+            }
+        } else {
+            searchServerStatus.textContent = (data.message || "Unknown error");
+        }
+    } catch (err) {
+        console.error(err);
+        searchServerStatus.textContent = "Unable connect to server";
+        searchServerStatus.className = "statusFailed";
+    } finally {
+        searchInputField.disabled = false;
+        searchSubmitButton.disabled = false;
     }
 });

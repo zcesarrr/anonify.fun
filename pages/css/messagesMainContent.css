@@ -124,6 +124,11 @@ h1 {
     font-size: 18px;
 }
 
+#searchContainer form input:disabled {
+    border: 2px solid  gray;
+    color: gray;
+}
+
 #searchContainer form input:focus{
     border: 2px solid  greenyellow;
     outline: none;

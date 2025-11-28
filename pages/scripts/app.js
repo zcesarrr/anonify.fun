@@ -62,7 +62,7 @@ messageForm.addEventListener("submit", async(e) => {
     }
 
     try {
-        const res = await fetch("http://localhost:3000/send", {
+        const res = await fetch(`${config.api_key}send`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
