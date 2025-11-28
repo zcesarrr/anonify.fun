@@ -167,3 +167,8 @@ h1 {
 .messageBox-createdAt-date, .messageBox-createdAt-time {
     color: greenyellow;
 }
+
+#retry-button-messages {
+    width: 128px;
+    height: 32px;
+}

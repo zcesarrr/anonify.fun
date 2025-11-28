@@ -125,8 +125,11 @@ searchSubmitButton.addEventListener("click", async (e) => {
 
 
 const serverStatusMessages = document.getElementById("server-status-messages");
+const retryButtonMessages = document.getElementById("retry-button-messages");
 
 async function loadMessages() {
+    retryButtonMessages.hidden = true;
+
     const payload = {
         limit: 5
     };
@@ -146,6 +149,8 @@ async function loadMessages() {
             if (res.status == 429) {
                 serverStatusMessages.textContent += ` (Retry After: ${err.retryAfter})`
             }
+
+            retryButtonMessages.hidden = false;
             return;
         }
 
@@ -165,7 +170,15 @@ async function loadMessages() {
         console.error(err);
         serverStatusMessages.textContent = "Unable connect to server";
         serverStatusMessages.className = "statusFailed";
+
+        retryButtonMessages.hidden = false;
     }
 };
 
 loadMessages();
+
+retryButtonMessages.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    await loadMessages();
+});
