@@ -4,5 +4,5 @@ main {
 
 main div {
     font-size: 24px;
+    max-width: 600px;
 }
-
