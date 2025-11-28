@@ -1,6 +1,7 @@
 const searchInputField = document.getElementById("search-box-input");
 const searchSubmitButton = document.getElementById("search-message-button");
 const searchPasteButton = document.getElementById("paste-button");
+const searchServerStatus = document.getElementById("search-server-status");
 
 searchInputField.addEventListener("input", (e) => {
     checkSearchInputLength();
@@ -28,4 +29,15 @@ searchPasteButton.addEventListener("click", async (e) => {
     } catch (err) {
         console.log(err);
     }
+});
+
+searchSubmitButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    searchInputField.disabled = true;
+    searchSubmitButton.disabled = true;
+
+    const payload = {
+        id: searchInputField.value
+    };
 });
