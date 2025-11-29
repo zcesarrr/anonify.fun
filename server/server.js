@@ -12,10 +12,11 @@ const rateLimit = require('express-rate-limit');
 const allowedOrigins = process.env.CLIENT_URLS.split(",");
 
 app.use(cors({
-    origin: [allowedOrigins],
-    methods: ['GET', 'POST'],
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['RateLimit-Reset', 'RateLimit-Remaining']
+    exposedHeaders: ['RateLimit-Reset', 'RateLimit-Remaining'],
+    credentials: false
 }));
 
 app.use(express.json());
