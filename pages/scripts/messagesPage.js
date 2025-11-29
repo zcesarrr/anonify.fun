@@ -201,7 +201,8 @@ async function loadMessages(offsetValue) {
                 });
 
                 if (data.data.length >= payload.limit) {
-                    console.log(data.totalRows);
+                    const pagesCount = offsetValue / data.totalRows * Math.floor(data.totalRows / payload.limit);
+                    console.log(pagesCount);
                 }
             } else {
                 serverStatusMessages.textContent = "No messages found.";
@@ -219,7 +220,7 @@ async function loadMessages(offsetValue) {
     }
 };
 
-loadMessages();
+loadMessages(36);
 
 retryButtonMessages.addEventListener("click", async (e) => {
     e.preventDefault();
