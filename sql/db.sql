@@ -14,13 +14,13 @@ SELECT * FROM messages;
 
 SELECT * FROM messages ORDER BY created_at DESC LIMIT 10;
 
-UPDATE messages SET answer = 'Gracias por probar :3' 
-WHERE id = '9649fdc5-0a4c-4a58-bc09-2f0d221160fd';
+UPDATE messages SET answer = 'Y que tal? Funciona bien? y esa risa toda pendejita que we' 
+WHERE id = 'edb2c3cb-b0ec-4ecc-9102-ea57587c79d4';
 
 -- Test searching message by id
 SELECT * FROM messages WHERE id = 'e132b481-4d75-46a0-a14d-622b1401ff2b';
 SELECT * FROM messages WHERE answer IS NOT NULL ORDER BY created_at DESC LIMIT 10;
-SELECT * FROM messages WHERE answer IS NULL ORDER BY created_at DESC LIMIT 10;
+SELECT * FROM messages WHERE answer IS NULL ORDER BY created_at DESC OFFSET 0 ROWS LIMIT 10;
 
 INSERT INTO messages(msg) VALUES('hi owo');
 INSERT INTO messages(msg) VALUES('hello :3');

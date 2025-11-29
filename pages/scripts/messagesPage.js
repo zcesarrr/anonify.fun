@@ -139,8 +139,8 @@ async function loadMessages() {
     retryButtonMessages.hidden = true;
 
     const payload = {
-        limit: -1,
-        answerRequired:true
+        limit: 12,
+        answerRequired: false
     };
 
     try {
@@ -198,6 +198,10 @@ async function loadMessages() {
                         messageItem.classList.remove("selected-message");
                     });
                 });
+
+                if (data.data.length >= payload.limit) {
+                    
+                }
             } else {
                 serverStatusMessages.textContent = "No messages found.";
                 serverStatusMessages.className = "";
