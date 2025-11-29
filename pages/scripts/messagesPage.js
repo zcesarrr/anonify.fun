@@ -135,11 +135,12 @@ const serverStatusMessages = document.getElementById("server-status-messages");
 const retryButtonMessages = document.getElementById("retry-button-messages");
 const messagesContent = document.getElementById("messagesContent");
 
-async function loadMessages() {
+async function loadMessages(offsetValue) {
     retryButtonMessages.hidden = true;
 
     const payload = {
         limit: 12,
+        offset: offsetValue || 0,
         answerRequired: false
     };
 
