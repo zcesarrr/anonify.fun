@@ -146,6 +146,13 @@ async function loadMessages(offsetValue) {
         answerRequired: false
     };
 
+    const currentMessages = messagesContent.querySelectorAll(".messageBox");
+    if (currentMessages.length > 0) {
+        for (let i = 0; i < currentMessages.length; i++) {
+            currentMessages[i].remove();
+        }
+    }
+
     try {
         const res = await fetch(`${config.api_key}messages`, {
             method: "POST",
@@ -207,7 +214,6 @@ async function loadMessages(offsetValue) {
                 if (data.totalRows >= payload.limit) {
                     const currentPage = parseInt(Math.ceil((offsetValue / data.totalRows) * Math.floor(data.totalRows / payload.limit))) + 1;
                     const totalPages = parseInt(Math.floor(data.totalRows / payload.limit)) + 1;
-                    console.log(currentPage + "/" + totalPages);
 
                     pagination.hidden = false;
 
