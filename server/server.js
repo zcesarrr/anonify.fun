@@ -59,7 +59,7 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
     try {
         let limit = req.body.limit || 10;
         let offset = req.body.offset || 0;
-        let answerRequired = req.body.answerRequired;
+        //let answerRequired = req.body.answerRequired;
 
         if (limit == -1) limit = 99999;
 
@@ -73,9 +73,9 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
         }
 
         const client = await pool.connect();
-        const result = await client.query(`SELECT msg, created_at, answer, answered_at, answer_updated_at FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''} ORDER BY created_at DESC OFFSET $1 ROWS LIMIT $2`, [offset, limit]);
+        const result = await client.query(`SELECT msg, created_at, answer, answered_at, answer_updated_at FROM messages ${true ? 'WHERE answer IS NOT NULL' : ''} ORDER BY created_at DESC OFFSET $1 ROWS LIMIT $2`, [offset, limit]);
 
-        const total_rows = await client.query(`SELECT COUNT(*) AS total FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''}`);
+        const total_rows = await client.query(`SELECT COUNT(*) AS total FROM messages ${true ? 'WHERE answer IS NOT NULL' : ''}`);
         client.release();
         
         const data = {
