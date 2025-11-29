@@ -195,5 +195,10 @@ h1 {
 
 #pagination {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
+}
+
+.page-button {
+    width: 32px;
 }

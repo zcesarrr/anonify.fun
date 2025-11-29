@@ -141,7 +141,7 @@ async function loadMessages(offsetValue) {
     retryButtonMessages.hidden = true;
 
     const payload = {
-        limit: 12,
+        limit: 18,
         offset: offsetValue || 0,
         answerRequired: false
     };
@@ -220,6 +220,7 @@ async function loadMessages(offsetValue) {
                     for (let i = 0; i < totalPages; i++) {
                         const pageButton = document.createElement("button");
                         pageButton.className = "one-click-button";
+                        pageButton.classList.add("page-button");
                         pageButton.textContent = i + 1;
 
                         pageButton.addEventListener("click", () => {
