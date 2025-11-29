@@ -105,12 +105,15 @@ searchSubmitButton.addEventListener("click", async (e) => {
                 document.getElementById("yourMessage-messageBox-createdAt-date").textContent = created_at[0]
                 document.getElementById("yourMessage-messageBox-createdAt-time").textContent = created_at_time[0]
                 document.getElementById("yourMessage-messageBox-content").textContent = data.data.msg;
+                
+                document.getElementById("yourMessage-cesarz-response").hidden = false;
 
                 if (data.data.answer != null || data.data.answer == "") {
-                    document.getElementById("yourMessage-cesarz-response").hidden = false;
                     document.getElementById("yourMessage-cesarz-response").textContent = "> " + data.data.answer;
                 } else {
-                    document.getElementById("yourMessage-cesarz-response").hidden = true;
+                    const cesarzResponseBox = document.getElementById("yourMessage-cesarz-response");
+                    cesarzResponseBox.textContent = "[The author hasn't been approved nor answered this message.]";
+                    cesarzResponseBox.style.color = "#FFFFFF";
                 }
             }
         } else {
