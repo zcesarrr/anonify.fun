@@ -7,7 +7,7 @@ main {
     justify-self: center;
     text-align: center;
     max-width: 350px;
-    margin-top: -90px; /* Acerca el elemento hacia arriba */
+    margin-top: -10px; /* Acerca el elemento hacia arriba */
 }
 
 #messageForm {
@@ -38,7 +38,7 @@ main {
 }
 
 #messageFormResult {
-    margin-top: -60px;
+    margin-top: 0px;
     justify-self: center;
     text-align: center;
 }

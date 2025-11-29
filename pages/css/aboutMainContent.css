@@ -1,9 +1,10 @@
 main {
-    margin: 20px;
+    margin-inline: 24px;
+    margin-bottom: 24px;
 }
 
 main div {
-    font-size: 24px;
+    font-size: 22px;
     max-width: 600px;
 }
 
