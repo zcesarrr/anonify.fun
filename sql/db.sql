@@ -17,7 +17,7 @@ CREATE TABLE messages(
 );
 
 
--- Functions
+-- Functions required for the first messages table creation (updatable)
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -32,7 +32,7 @@ END;
 $$ language 'plpgsql';
 
 
--- Triggers for the first installation
+-- Triggers for the first messages table creation
 CREATE TRIGGER update_your_table_modified_time
 BEFORE UPDATE OF answer ON messages
 FOR EACH ROW
@@ -69,5 +69,5 @@ FROM messages WHERE answer IS NULL ORDER BY created_at DESC;
 
 -- Answer a message example:
 UPDATE messages 
-SET answer = 'Creo que esto si que va a funcionar... EDIT: Probando updated_at' 
-WHERE id = '407fa152-9adb-4a2f-8fce-169e7ef29cad';
+SET answer = 'Opino lo mismo, the chicken is in the oven lenny face wtf' 
+WHERE id = 'e26b309c-7575-4a78-bdde-6f0df4b3abc4';
