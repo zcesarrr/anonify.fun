@@ -201,7 +201,7 @@ async function loadMessages(offsetValue) {
                         return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
                     }
 
-                    const createdDate = new Date(item.created_at);
+                    const createdDate = new Date(item.answered_at || Date.now());
                     const localDate = createdDate.toLocaleDateString('en-CA');
                     const localTime = createdDate.toLocaleTimeString("en-US", {
                         hour12: false,
