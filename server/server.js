@@ -72,12 +72,15 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
 
         const client = await pool.connect();
         const result = await client.query(`SELECT msg, created_at, answer, answer_updated_at FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''} ORDER BY created_at DESC OFFSET $1 ROWS LIMIT $2`, [offset, limit]);
+
+        const total_rows = await client.query(`SELECT COUNT(*) AS total FROM messages ${answerRequired ? 'WHERE answer IS NOT NULL' : ''}`);
         client.release();
         
         const data = {
             status: "success",
             message: "Operation has been completed sucessfully!",
-            data: result.rows
+            data: result.rows,
+            totalRows: total_rows.rows[0].total
         }
 
         res.status(200).json(data);
