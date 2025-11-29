@@ -1,5 +1,5 @@
 -- EXTREME EMERGENCY
-DROP TABLE messages;
+-- DROP TABLE messages;
 
 
 -- Create UUID4 extension only for the first installation
