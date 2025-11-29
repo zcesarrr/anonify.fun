@@ -146,6 +146,8 @@ async function loadMessages(offsetValue) {
         answerRequired: false
     };
 
+    while (pagination.firstChild) pagination.removeChild(pagination.firstChild);
+
     const currentMessages = messagesContent.querySelectorAll(".messageBox");
     if (currentMessages.length > 0) {
         for (let i = 0; i < currentMessages.length; i++) {
@@ -159,8 +161,6 @@ async function loadMessages(offsetValue) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-
-        while (pagination.firstChild) pagination.removeChild(pagination.firstChild);
 
         if (!res.ok) {
             const err = await res.json().catch(() => null);
