@@ -185,16 +185,44 @@ async function loadMessages(offsetValue) {
                 data.data.map((item) => {
                     document.getElementById("status-container").style.display = "none";
 
-                    const created_at = item.created_at.split('T');
-                    const created_at_time = created_at[1].split('.');
+                    function formatTimeDifference(ms) {
+                        const seconds = Math.floor(ms / 1000);
+                        const minutes = Math.floor(ms / (1000 * 60));
+                        const hours = Math.floor(ms / (1000 * 60 * 60));
+                        const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+                        const months = Math.floor(days / 30);
+                        const years = Math.floor(days / 365);
+
+                        if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`;
+                        if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`;
+                        if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+                        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                        if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                        return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+                    }
+
+                    const createdDate = new Date(item.created_at);
+                    const localDate = createdDate.toLocaleDateString('en-CA');
+                    const localTime = createdDate.toLocaleTimeString("en-US", {
+                        hour12: false,
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    const diffMs = Date.now() - createdDate.getTime();
+
+                    const timeAgo = formatTimeDifference(diffMs);
+                    //console.log(timeAgo);
 
                     const messageItem = document.createElement("div");
                     messageItem.className = "messageBox messageBoxClickeable";
                     messageItem.innerHTML = `
                         <div class="messageBox-createdAt">
-                            <div class="messageBox-createdAt-date">${created_at[0]}</div>
+                            <div class="messageBox-createdAt-date">${localDate}</div>
                             -
-                            <div class="messageBox-createdAt-time">${created_at_time[0]}</div>
+                            <div class="messageBox-createdAt-time">${localTime}</div>
+                            -
+                            <div class="messageBox-createdAt-ago">${timeAgo}</div>
                         </div>
                         <p>${item.msg}</p>
                     `;
