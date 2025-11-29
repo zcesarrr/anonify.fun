@@ -9,8 +9,10 @@ const pool = require('./config/db');
 
 const rateLimit = require('express-rate-limit');
 
+const allowedOrigins = process.env.CLIENT_URLS.split(",");
+
 app.use(cors({
-    origin: [process.env.CLIENT_URL],
+    origin: [allowedOrigins],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['RateLimit-Reset', 'RateLimit-Remaining']
