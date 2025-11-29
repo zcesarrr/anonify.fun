@@ -185,5 +185,5 @@ app.post('/send', sendMessagesLimiter, async(req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`);
+    console.log(`App listening on port http://localhost:${port}`);
 });
