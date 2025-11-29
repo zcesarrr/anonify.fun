@@ -31,16 +31,16 @@ const limiterHandler = (req, res) => {
 }
 
 const getMessagesLimiter = rateLimit({
-    windowMs: 60 * 1000,
-    max: 999,
+    windowMs: 180 * 1000,
+    max: 10,
     standardHeaders: true,
     legacyHeaders: false,
     handler: limiterHandler,
 });
 
 const searchMessageLimiter = rateLimit({
-    windowMs: 30 * 1000,
-    max: 5,
+    windowMs: 120 * 1000,
+    max: 3,
     standardHeaders: true,
     legacyHeaders: false,
     handler: limiterHandler,
@@ -48,7 +48,7 @@ const searchMessageLimiter = rateLimit({
 
 
 const sendMessagesLimiter = rateLimit({
-    windowMs: 5 * 1000,
+    windowMs: 300 * 1000,
     max: 1,
     standardHeaders: true,
     legacyHeaders: false,
