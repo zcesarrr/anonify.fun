@@ -202,8 +202,8 @@ async function loadMessages(offsetValue) {
 
                 if (data.totalRows >= payload.limit) {
                     const currentPage = parseInt(Math.ceil((offsetValue / data.totalRows) * Math.floor(data.totalRows / payload.limit))) + 1;
-                    const totalPages = Math.floor(data.totalRows / payload.limit) + 1;
-                    console.log(totalPages);
+                    const totalPages = parseInt(Math.floor(data.totalRows / payload.limit)) + 1;
+                    console.log(currentPage + "/" + totalPages);
                 }
             } else {
                 serverStatusMessages.textContent = "No messages found.";
@@ -221,7 +221,7 @@ async function loadMessages(offsetValue) {
     }
 };
 
-loadMessages(36);
+loadMessages(0);
 
 retryButtonMessages.addEventListener("click", async (e) => {
     e.preventDefault();
