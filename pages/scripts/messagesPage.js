@@ -201,7 +201,7 @@ async function loadMessages(offsetValue) {
                 });
 
                 if (data.data.length >= payload.limit) {
-                    
+                    console.log(data.totalRows);
                 }
             } else {
                 serverStatusMessages.textContent = "No messages found.";

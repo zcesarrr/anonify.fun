@@ -80,7 +80,8 @@ app.post('/messages', getMessagesLimiter, async(req, res) => {
             status: "success",
             message: "Operation has been completed sucessfully!",
             data: result.rows,
-            totalRows: total_rows.rows[0].total
+            offset:offset,
+            totalRows: parseInt(total_rows.rows[0].total)
         }
 
         res.status(200).json(data);
