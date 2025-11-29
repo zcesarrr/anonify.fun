@@ -33,77 +33,60 @@ jobs:
         rm -rf _notes sql
         echo "Removed _notes and sql directories"
     
-    - name: Remove files starting with underscore from client directory
+    - name: Create client directory and move pages content
       run: |
-        find client -name "_*" -type f -delete
-        echo "Removed files starting with underscore from client directory"
+        mkdir -p client
+        mv pages/* client/
+        rmdir pages
+        echo "Created client directory and moved all pages content to client/"
     
-    - name: Move app.js to root directory
+    - name: Update config.js to set dev to false
       run: |
-        if [ -f client/app.js ]; then
-          mv client/app.js ./app.js
-          echo "Moved client/app.js to root directory"
+        if [ -f client/scripts/config.js ]; then
+          sed -i 's/const dev = true;/const dev = false;/' client/scripts/config.js
+          echo "Updated config.js: set dev = false"
         else
-          echo "client/app.js not found"
+          echo "Warning: client/scripts/config.js not found"
         fi
     
-    - name: Create dist directory structure
+    - name: Remove files starting with underscore from client directory
       run: |
-        mkdir -p dist/static dist/server
-        echo "Created dist directory with static and server subdirectories"
+        find client -name "_*" -type f -delete 2>/dev/null || true
+        echo "Removed files starting with underscore from client directory"
     
-    - name: Move static files to dist/static
+    - name: Minify CSS files (optional optimization)
       run: |
-        # Mover archivos estáticos
-        mv index.html dist/static/
-        mv style.css dist/static/
-        mv app.js dist/static/
-        mv icons/ dist/static/
-        
-        echo "Moved static files to dist/static/"
-        echo "Static files: index.html, style.css, app.js, icons/"
+        # Simple minification - remove comments and extra whitespace
+        for css_file in $(find client -name "*.css"); do
+          if [ -f "$css_file" ]; then
+            # Remove comments and compress whitespace
+            sed -i 's|/\*.*\*/||g' "$css_file"
+            sed -i 's/  */ /g' "$css_file"
+            sed -i '/^[[:space:]]*$/d' "$css_file"
+          fi
+        done
+        echo "Applied basic CSS minification"
     
-    - name: Move server files to dist/server
+    - name: Create production summary of structure
       run: |
-        # Mover toda la carpeta server
-        mv server/ dist/
-        
-        echo "Moved server directory to dist/server/"
-    
-    - name: Remove underscore script references from index.html
-      run: |
-        # Crear copia de seguridad
-        cp dist/static/index.html dist/static/index.html.bak
-        
-        # Remover líneas que contengan referencias a archivos que empiecen con underscore
-        sed -i '/src="[^"]*\/_[^"]*"/d' dist/static/index.html
-        sed -i '/href="[^"]*\/_[^"]*"/d' dist/static/index.html
-        
-        # Remover comentarios que referencien archivos que empiecen con underscore
-        sed -i '/<!--.*client\/_.*-->/d' dist/static/index.html
-        sed -i '/<!--.*\/_.*-->/d' dist/static/index.html
-        
-        echo "Updated dist/static/index.html - removed underscore file references"
-    
-    - name: Update script reference in index.html
-      run: |
-        # Cambiar la referencia de client/app.js a app.js
-        sed -i 's|client/app\.js|app.js|g' dist/static/index.html
-        echo "Updated app.js reference in dist/static/index.html"
+        echo "=== Final client directory structure ==="
+        find client -type f | sort
+        echo ""
+        echo "=== Server directory structure ==="
+        find server -type f | sort
     
     - name: Show changes made
       run: |
         echo "=== Files and directories removed/modified ==="
         git status --porcelain
         echo ""
-        echo "=== Changes in index.html ==="
-        diff dist/static/index.html.bak dist/static/index.html || true
+        echo "=== Final project structure ==="
+        find . -type d -name ".git" -prune -o -type f -print | sort
         echo ""
-        echo "=== Final dist directory structure ==="
-        find dist -type f | sort
-        echo ""
-        echo "=== Remaining files in root ==="
-        find . -maxdepth 1 -type f -name "*.js" -o -name "*.html" -o -name "*.css" -o -name "*.md" | sort
+        echo "=== Config.js content ==="
+        if [ -f client/scripts/config.js ]; then
+          cat client/scripts/config.js
+        fi
     
     - name: Commit and push changes to production branch
       env:
@@ -130,25 +113,31 @@ jobs:
         echo "### Changes Made:" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed \`_notes\` directory" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed \`sql\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- 📁 Created \`client/\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- 📁 Moved all \`pages/\` content to \`client/\`" >> $GITHUB_STEP_SUMMARY
+        echo "- ❌ Removed \`pages\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- 🔧 Updated \`config.js\`: set \`dev = false\`" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed all files starting with \`_\` from \`client/\` directory" >> $GITHUB_STEP_SUMMARY
-        echo "- 📁 Created \`dist/\` directory structure" >> $GITHUB_STEP_SUMMARY
-        echo "- 📁 Moved static files to \`dist/static/\` (index.html, style.css, app.js, icons/)" >> $GITHUB_STEP_SUMMARY
-        echo "- 📁 Moved \`server/\` directory to \`dist/server/\`" >> $GITHUB_STEP_SUMMARY
-        echo "- 🔧 Updated \`index.html\` to remove underscore file references" >> $GITHUB_STEP_SUMMARY
-        echo "- 🔗 Updated \`app.js\` script reference in \`index.html\`" >> $GITHUB_STEP_SUMMARY
+        echo "- ⚡ Applied CSS minification for better performance" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### Production Branch" >> $GITHUB_STEP_SUMMARY
+        echo "### Production Branch Structure" >> $GITHUB_STEP_SUMMARY
         echo "The production-ready code is now available in the \`production\` branch with the following structure:" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "```" >> $GITHUB_STEP_SUMMARY
-        echo "dist/" >> $GITHUB_STEP_SUMMARY
-        echo "├── static/" >> $GITHUB_STEP_SUMMARY
-        echo "│   ├── index.html" >> $GITHUB_STEP_SUMMARY
+        echo "client/" >> $GITHUB_STEP_SUMMARY
+        echo "├── index.html" >> $GITHUB_STEP_SUMMARY
+        echo "├── about.html" >> $GITHUB_STEP_SUMMARY
+        echo "├── messages.html" >> $GITHUB_STEP_SUMMARY
+        echo "├── css/" >> $GITHUB_STEP_SUMMARY
         echo "│   ├── style.css" >> $GITHUB_STEP_SUMMARY
+        echo "│   └── ..." >> $GITHUB_STEP_SUMMARY
+        echo "├── scripts/" >> $GITHUB_STEP_SUMMARY
         echo "│   ├── app.js" >> $GITHUB_STEP_SUMMARY
-        echo "│   └── icons/" >> $GITHUB_STEP_SUMMARY
-        echo "└── server/" >> $GITHUB_STEP_SUMMARY
-        echo "    ├── server.js" >> $GITHUB_STEP_SUMMARY
-        echo "    ├── package.json" >> $GITHUB_STEP_SUMMARY
-        echo "    └── config/" >> $GITHUB_STEP_SUMMARY
+        echo "│   ├── config.js (dev = false)" >> $GITHUB_STEP_SUMMARY
+        echo "│   └── ..." >> $GITHUB_STEP_SUMMARY
+        echo "└── icons/" >> $GITHUB_STEP_SUMMARY
+        echo "server/" >> $GITHUB_STEP_SUMMARY
+        echo "├── server.js" >> $GITHUB_STEP_SUMMARY
+        echo "├── package.json" >> $GITHUB_STEP_SUMMARY
+        echo "└── config/" >> $GITHUB_STEP_SUMMARY
         echo "```" >> $GITHUB_STEP_SUMMARY
