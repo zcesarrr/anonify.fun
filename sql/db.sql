@@ -38,6 +38,11 @@ CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$
 BEGIN
 	NEW.answer_updated_at = now();
+
+	IF NEW.answered_at IS NULL THEN
+        NEW.answered_at = NOW();
+    END IF;
+	
 	RETURN NEW;
 END;
 $$ language 'plpgsql';
