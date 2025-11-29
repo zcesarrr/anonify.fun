@@ -200,9 +200,10 @@ async function loadMessages(offsetValue) {
                     });
                 });
 
-                if (data.data.length >= payload.limit) {
-                    const pagesCount = offsetValue / data.totalRows * Math.floor(data.totalRows / payload.limit);
-                    console.log(pagesCount);
+                if (data.totalRows >= payload.limit) {
+                    const currentPage = parseInt(Math.ceil((offsetValue / data.totalRows) * Math.floor(data.totalRows / payload.limit))) + 1;
+                    const totalPages = Math.floor(data.totalRows / payload.limit) + 1;
+                    console.log(totalPages);
                 }
             } else {
                 serverStatusMessages.textContent = "No messages found.";
