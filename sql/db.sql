@@ -10,9 +10,14 @@ CREATE TABLE messages(
 	answer_updated_at TIMESTAMP WITH TIME ZONE NULL
 );
 
+ALTER TABLE messages
+ADD COLUMN answered_at TIMESTAMP WITH TIME ZONE NULL;
+
 SELECT * FROM messages;
 
 SELECT * FROM messages ORDER BY created_at DESC LIMIT 10;
+
+UPDATE messages SET answered_at = CURRENT_TIMESTAMP;
 
 UPDATE messages SET answer = 'Y que tal? Funciona bien? y esa risa toda pendejita que we' 
 WHERE id = 'edb2c3cb-b0ec-4ecc-9102-ea57587c79d4';
