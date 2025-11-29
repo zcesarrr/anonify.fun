@@ -29,10 +29,14 @@ initApp();
 
 // Submit Message Handle
 const adviceCopy = document.createElement("p")
-adviceCopy.innerHTML = `<a href="" class="highlight-nav-button" id="copyIDbtn">Copy</a> and save your request ID to search your answer on <a href="messages.html" class="highlight-nav-button">messages</a> when it's available!`;
+adviceCopy.innerHTML = `<a href="" class="highlight-nav-button" id="copyIDbtn">Copy</a> and save your last request ID to search your answer on <a href="messages.html" class="highlight-nav-button">messages</a> when it's available!`;
 let adviceCopyInstance;
 
 let hideStatusTextTimeout;
+
+if (localStorage.getItem("lastID")) {
+    spawnCopyAdvice(localStorage.getItem("lastID"));
+}
 
 messageForm.addEventListener("submit", async(e) => {
     e.preventDefault();
@@ -85,28 +89,8 @@ messageForm.addEventListener("submit", async(e) => {
             messageFormResult.textContent = data.message;
             messageFormResult.className = "statusOk";
 
-            if (!adviceCopyInstance) {
-                adviceCopyInstance = document.getElementById("copy-advice").appendChild(adviceCopy);
-
-                document.getElementById("copyIDbtn").addEventListener("click", (e) => {
-                    e.preventDefault();
-                    
-                    const idResult = data.data.id;
-                    navigator.clipboard.writeText(idResult);
-
-                    let isVisible = false;
-                    adviceCopyInstance.style.opacity = '0';
-                    const blinkInterval = setInterval(() => {
-                        isVisible = !isVisible;
-                        adviceCopyInstance.style.opacity = isVisible ? '1' : '0';
-                    }, 100);
-
-                    setTimeout(() => {
-                        clearInterval(blinkInterval);
-                        adviceCopyInstance.style.opacity = '1';
-                    }, 500);
-                });
-            }
+            localStorage.setItem("lastID", data.data.id);
+            spawnCopyAdvice(data.data.id);
         } else {
             messageFormResult.textContent = (data.message || "Unknown error");
         }
@@ -124,6 +108,31 @@ messageForm.addEventListener("submit", async(e) => {
         }, 6000);
     }
 });
+
+function spawnCopyAdvice(savedID) {
+    if (!adviceCopyInstance) {
+        adviceCopyInstance = document.getElementById("copy-advice").appendChild(adviceCopy);
+
+        document.getElementById("copyIDbtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            
+            const idResult = savedID;
+            navigator.clipboard.writeText(idResult);
+
+            let isVisible = false;
+            adviceCopyInstance.style.opacity = '0';
+            const blinkInterval = setInterval(() => {
+                isVisible = !isVisible;
+                adviceCopyInstance.style.opacity = isVisible ? '1' : '0';
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(blinkInterval);
+                adviceCopyInstance.style.opacity = '1';
+            }, 500);
+        });
+    }
+}
 
 async function checkRateLimit() {
     const rateLimitTime = localStorage.getItem("rateLimit");
