@@ -20,6 +20,7 @@ class FooterComponent extends HTMLElement {
                 <img src="icons/info-circle.svg" alt="info" class="filterWhite" width="24px"/>
                 <div>Icons from <a href="https://pixeliconlibrary.com/" target="_blank" class="highlight-nav-button">Pixel Icon Library</a> by <a href="https://hackernoon.com/" target="_blank" class="highlight-nav-button">HackerNoon</a></div>
             </div>
+            <div>Anonify</div>
             <div id="footerSocialIcons">
                 <div>CesarZ</div>
                 <a href="https://x.com/zcesarrr" target="_blank"><img src="icons/twitter.svg" alt="twitter" class="filterWhite" width="28px"/></a>

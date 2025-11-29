@@ -56,11 +56,11 @@ body {
 }
 
 main {
-    /*border: 2px solid green;*/
     display: grid;
     align-items: flex-start;
     overflow-y: auto;
     min-height: 0;
+    padding-bottom: 60px;
 }
 
 header {
@@ -95,14 +95,26 @@ header {
 footer {
     border-top: 2px solid white;
     margin: 0;
-    display: flex;
-    position: sticky;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: black;
-    padding: 10px 24px;
+    padding: 10px 10px;
     min-height: 32px;
     align-items: center;
-    justify-content: space-between;
-    gap: 64px;
+    justify-items: start;
+    gap: 16px;
+}
+
+footer div:nth-child(2) {
+    justify-self: center;
+}
+
+footer div:nth-child(3) {
+    justify-self: end;
 }
 
 #footerHackerNoonAttribution {
