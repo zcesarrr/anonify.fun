@@ -192,3 +192,8 @@ h1 {
 .selected-message {
     border: 2px yellow solid;
 }
+
+#pagination {
+    display: flex;
+    gap: 8px;
+}

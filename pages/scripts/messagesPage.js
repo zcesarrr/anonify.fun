@@ -135,6 +135,8 @@ const serverStatusMessages = document.getElementById("server-status-messages");
 const retryButtonMessages = document.getElementById("retry-button-messages");
 const messagesContent = document.getElementById("messagesContent");
 
+const pagination = document.getElementById("pagination");
+
 async function loadMessages(offsetValue) {
     retryButtonMessages.hidden = true;
 
@@ -150,6 +152,8 @@ async function loadMessages(offsetValue) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
+
+        while (pagination.firstChild) pagination.removeChild(pagination.firstChild);
 
         if (!res.ok) {
             const err = await res.json().catch(() => null);
@@ -204,6 +208,22 @@ async function loadMessages(offsetValue) {
                     const currentPage = parseInt(Math.ceil((offsetValue / data.totalRows) * Math.floor(data.totalRows / payload.limit))) + 1;
                     const totalPages = parseInt(Math.floor(data.totalRows / payload.limit)) + 1;
                     console.log(currentPage + "/" + totalPages);
+
+                    pagination.hidden = false;
+
+                    for (let i = 0; i < totalPages; i++) {
+                        const pageButton = document.createElement("button");
+                        pageButton.className = "one-click-button";
+                        pageButton.textContent = i + 1;
+
+                        pageButton.addEventListener("click", () => {
+                            loadMessages(i * payload.limit)
+                        });
+                        
+                        if ((i + 1) === currentPage) pageButton.classList.add("one-click-button-selected");
+
+                        pagination.appendChild(pageButton);
+                    }
                 }
             } else {
                 serverStatusMessages.textContent = "No messages found.";
