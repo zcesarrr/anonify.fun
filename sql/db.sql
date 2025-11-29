@@ -20,7 +20,8 @@ WHERE id = 'edb2c3cb-b0ec-4ecc-9102-ea57587c79d4';
 -- Test searching message by id
 SELECT * FROM messages WHERE id = 'e132b481-4d75-46a0-a14d-622b1401ff2b';
 SELECT * FROM messages WHERE answer IS NOT NULL ORDER BY created_at DESC LIMIT 10;
-SELECT * FROM messages WHERE answer IS NULL ORDER BY created_at DESC OFFSET 0 ROWS LIMIT 10;
+SELECT * FROM messages WHERE answer IS NULL ORDER BY created_at DESC OFFSET 32 ROWS LIMIT 10;
+SELECT COUNT(*) AS total FROM messages WHERE answer IS NULL;
 
 INSERT INTO messages(msg) VALUES('hi owo');
 INSERT INTO messages(msg) VALUES('hello :3');
