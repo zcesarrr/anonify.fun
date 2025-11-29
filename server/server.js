@@ -32,7 +32,7 @@ const limiterHandler = (req, res) => {
 
 const getMessagesLimiter = rateLimit({
     windowMs: 180 * 1000,
-    max: 10,
+    max: 15,
     standardHeaders: true,
     legacyHeaders: false,
     handler: limiterHandler,
