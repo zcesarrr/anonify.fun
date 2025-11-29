@@ -143,7 +143,7 @@ async function loadMessages(offsetValue) {
     const payload = {
         limit: 18,
         offset: offsetValue || 0,
-        answerRequired: false
+        answerRequired: true
     };
 
     while (pagination.firstChild) pagination.removeChild(pagination.firstChild);
