@@ -112,7 +112,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
                     document.getElementById("yourMessage-cesarz-response").textContent = "> " + data.data.answer;
                 } else {
                     const cesarzResponseBox = document.getElementById("yourMessage-cesarz-response");
-                    cesarzResponseBox.textContent = "[The author hasn't been approved nor answered this message.]";
+                    cesarzResponseBox.textContent = "[The author has neither approved nor answered this message.]";
                     cesarzResponseBox.style.color = "#FFFFFF";
                 }
             }
