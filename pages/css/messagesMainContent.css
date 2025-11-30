@@ -196,6 +196,7 @@ h1 {
 #pagination {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 32px;
     gap: 8px;
 }
 
