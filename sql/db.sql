@@ -43,11 +43,6 @@ EXECUTE FUNCTION update_modified_column();
 -- ##########################################################
 
 
--- Alter table example just in case:
-ALTER TABLE messages
-ADD COLUMN answered_at TIMESTAMP WITH TIME ZONE NULL;
-
-
 -- Get the last 10 messages (all types)
 SELECT * FROM messages ORDER BY created_at DESC LIMIT 10;
 
