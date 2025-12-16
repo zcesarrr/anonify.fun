@@ -63,7 +63,7 @@ searchSubmitButton.addEventListener("click", async (e) => {
     clearTimeout(hideStatusTextTimeout);
 
     try {
-        const res = await fetch(`${config.api_key}search`, {
+        const res = await fetch(`${config.apiURL}search`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -159,7 +159,7 @@ async function loadMessages(offsetValue) {
     }
 
     try {
-        const res = await fetch(`${config.api_key}messages`, {
+        const res = await fetch(`${config.apiURL}messages`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
