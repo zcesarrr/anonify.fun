@@ -110,10 +110,10 @@ Edit the `.env` file with your credentials:
 ```env
 CLIENT_URLS="http://localhost:5500,http://127.0.0.1:8080"
 DB_HOST="localhost"
-DB_NAME="your_db_name"
+DB_NAME="anonify"
 DB_PASS="your_postgres_password"
-DB_PORT="your_db_port"
-DB_USER="your_db_user"
+DB_PORT="5432"
+DB_USER="postgres"
 SERVER_PORT="3000"
 ```
 
