@@ -28,10 +28,11 @@ jobs:
         # Crear rama production si no existe, o hacer checkout si existe
         git checkout -B production
     
-    - name: Remove _notes and sql directories
+    - name: Remove sql directory and .env.example
       run: |
-        rm -rf _notes sql
-        echo "Removed _notes and sql directories"
+        rm -rf sql
+        rm -f server/.env.example
+        echo "Removed sql directory and server/.env.example"
     
     - name: Create client directory and move pages content
       run: |
@@ -102,8 +103,8 @@ jobs:
         echo "**Branch:** production" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Changes Made:" >> $GITHUB_STEP_SUMMARY
-        echo "- ❌ Removed \`_notes\` directory" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed \`sql\` directory" >> $GITHUB_STEP_SUMMARY
+        echo "- ❌ Removed \`server/.env.example\` file" >> $GITHUB_STEP_SUMMARY
         echo "- 📁 Created \`client/\` directory" >> $GITHUB_STEP_SUMMARY
         echo "- 📁 Moved all \`pages/\` content to \`client/\`" >> $GITHUB_STEP_SUMMARY
         echo "- ❌ Removed \`pages\` directory" >> $GITHUB_STEP_SUMMARY
