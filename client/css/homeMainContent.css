@@ -1,0 +1,83 @@
+main {
+ padding-top: 15vh;
+}
+#copy-advice {
+ font-size: 14px;
+ justify-self: center;
+ text-align: center;
+ max-width: 350px;
+ margin-top: -10px; 
+}
+#messageForm {
+ display: grid;
+ justify-items: center;
+}
+#messageForm button {
+ width: 125px;
+ height: 35px;
+}
+#rules-advice {
+ text-align: center;
+}
+#messageForm label {
+ font-size: 20px;
+}
+#messageForm textarea {
+ resize: none;
+ padding: 8px;
+ background: black;
+ border: 2px solid white;
+ font-size: 24px;
+}
+#messageFormResult {
+ margin-top: 0px;
+ justify-self: center;
+ text-align: center;
+}
+@media screen and (max-width: 425px) {
+ #messageForm textarea {
+ width: 300px;
+ }
+ #messageFormResult {
+ max-width: 300px;
+ }
+ #rules-advice {
+ max-width: 300px;
+ }
+ /*#footerHackerNoonAttribution div {
+ font-size: 14px;
+ }*/
+}
+@media screen and (max-width: 345px) {
+ #messageForm textarea {
+ width: 275px;
+ }
+ /*#footerHackerNoonAttribution div {
+ font-size: 14px;
+ }*/
+}
+#messageForm textarea:focus{
+ border: 2px solid greenyellow;
+ outline: none;
+}
+#messageForm textarea:disabled{
+ border: 2px solid gray;
+ color: gray;
+}
+#messageForm #msgForm_submitContainer {
+ display: flex;
+ align-items: center;
+}
+#messageForm #msgForm_submitContainer div {
+ display: flex;
+ align-items: center;
+ margin-left: 6px;
+}
+#rulesModal ul{
+ display: flex;
+ list-style-type: none;
+ gap: 4px;
+ margin-left: 0;
+ padding-left: 16px;
+ flex-direction: column;
+}
