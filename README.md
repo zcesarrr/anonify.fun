@@ -1,4 +1,4 @@
-[anonify.fun][https://anonify.fun/]
+[anonify.fun](https://anonify.fun/)
 
 Send your ideas, confessions, questions, anything you want to express. Read the following AI generated instructions (lol!) to get started.
 
