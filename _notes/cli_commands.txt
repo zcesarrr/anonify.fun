@@ -1,7 +1,0 @@
-Install all nodejs dependencies:
-- cd server
-- npm install
-
-Execute express server
-- cd server
-- npm start

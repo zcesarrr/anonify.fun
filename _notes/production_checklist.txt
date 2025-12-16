@@ -1,5 +1,0 @@
-- delete sql folder
-- remove all scripts file with a underscore '_' in the beginning (dev scripts).
-- remove all dev scripts references from index.html
-- obfuscate scripts
-- minify scripts
