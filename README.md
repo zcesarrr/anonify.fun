@@ -1,4 +1,4 @@
- z# anonify.fun
+[anonify.fun][https://anonify.fun/]
 
 Send your ideas, confessions, questions, anything you want to express. Read the following AI generated instructions (lol!) to get started.
 
@@ -130,7 +130,7 @@ The server will be available at `http://localhost:3000`
 
 ### Start the frontend
 
-You can use any static server. Options:
+You can use any static server (avoid using LiveServer, I think it will give you problems). Options:
 
 #### Option 1: Python
 ```bash
